@@ -47,7 +47,7 @@
         header {
             background: linear-gradient(to right, var(--primary-red), var(--christmas-green));
             color: white;
-            padding: 25px 0;
+            padding: 25px 0; /* Standard-Padding für größere Bildschirme */
             text-align: center;
             box-shadow: 0 6px 12px rgba(0,0,0,0.25);
             position: relative;
@@ -61,6 +61,7 @@
             margin: 0;
             letter-spacing: 3px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            text-wrap: balance; /* Experimentell, kann helfen, Zeilenumbrüche zu optimieren */
         }
         
         header h1 span {
@@ -201,11 +202,14 @@
 
         /* Anpassungen für Tablets (breite 768px oder weniger) */
         @media (max-width: 768px) {
+            header {
+                padding: 20px 0; /* Etwas weniger Padding im Header */
+            }
             header h1 {
-                font-size: 3em;
+                font-size: 2.8em; /* H1 auf Tablets kleiner */
             }
             header p {
-                font-size: 1.1em;
+                font-size: 1em; /* Untertitel auf Tablets kleiner */
             }
             .container {
                 width: 95%;
@@ -240,18 +244,24 @@
 
         /* Anpassungen für Smartphones (breite 480px oder weniger) */
         @media (max-width: 480px) {
+            header {
+                padding: 15px 0; /* Noch weniger Padding im Header für kleine Smartphones */
+            }
             header h1 {
-                font-size: 2.2em;
+                font-size: 2em; /* H1 auf Smartphones noch kleiner */
                 letter-spacing: 1px;
             }
             header p {
-                font-size: 0.9em;
+                font-size: 0.85em; /* Untertitel auf Smartphones noch kleiner */
+            }
+            .snowflakes {
+                display: none; /* Schneeflocken auf kleinen Bildschirmen ausblenden */
             }
             h2 {
                 font-size: 1.7em;
             }
             h2::after, h2::before {
-                display: none;
+                display: none; /* Sterne auf sehr kleinen Screens ausblenden */
             }
             .section-description {
                 font-size: 1em;
@@ -313,12 +323,12 @@
         <p class="section-description">
             Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten zujubeln können.
         </p>
-        <iframe src="https://glympse.com/BLPL-a1ud" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://glympse.com/BAo--FnL2" allowfullscreen loading="lazy"></iframe>
         
         <p>
             Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
         </p>
-        <a class="button" href="https://glympse.com/BLPL-a1ud" target="_blank">Konvoi in voller Ansicht öffnen</a>
+        <a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a>
 
     </div>
 
