@@ -31,6 +31,7 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             position: relative;
+            overflow-x: hidden; /* Verhindert seitliches Scrollen */
         }
 
         body::before {
@@ -47,7 +48,7 @@
         header {
             background: linear-gradient(to right, var(--primary-red), var(--christmas-green));
             color: white;
-            padding: 25px 0; /* Standard-Padding für größere Bildschirme */
+            padding: 25px 0;
             text-align: center;
             box-shadow: 0 6px 12px rgba(0,0,0,0.25);
             position: relative;
@@ -61,7 +62,7 @@
             margin: 0;
             letter-spacing: 3px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-            text-wrap: balance; /* Experimentell, kann helfen, Zeilenumbrüche zu optimieren */
+            text-wrap: balance;
         }
         
         header h1 span {
@@ -88,6 +89,7 @@
             position: relative;
             z-index: 2;
             line-height: 1.8;
+            box-sizing: border-box; /* Stellt sicher, dass Padding zur Breite hinzugefügt wird */
         }
 
         h2 {
@@ -199,17 +201,84 @@
                 transform: translateY(100vh);
             }
         }
+        
+        .faq-list {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 800px;
+            list-style: none;
+            padding: 0;
+        }
+        .faq-item {
+            margin-bottom: 25px;
+        }
+        .faq-item h3 {
+            color: var(--christmas-green);
+            font-size: 1.4em;
+            border-bottom: 2px solid var(--christmas-gold);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
 
+        .hashtag {
+            background-color: var(--christmas-gold);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            margin-bottom: 15px; /* Abstand zum Instagram-Link */
+        }
+
+        .social-link {
+            display: inline-block;
+            margin-top: 15px; /* Abstand zum Hashtag */
+            margin-bottom: 20px; /* Abstand nach unten */
+        }
+        .social-link img {
+            width: 50px; /* Oder eine andere passende Größe */
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        .social-link img:hover {
+            transform: scale(1.1);
+        }
+
+        .countdown-info {
+            color: white;
+            font-size: 1.1em;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .countdown {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .countdown-item {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .countdown-item span {
+            display: block;
+            font-size: 0.5em;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
         /* Anpassungen für Tablets (breite 768px oder weniger) */
         @media (max-width: 768px) {
             header {
-                padding: 20px 0; /* Etwas weniger Padding im Header */
+                padding: 20px 0;
             }
             header h1 {
-                font-size: 2.8em; /* H1 auf Tablets kleiner */
+                font-size: 2.8em;
             }
             header p {
-                font-size: 1em; /* Untertitel auf Tablets kleiner */
+                font-size: 1em;
             }
             .container {
                 width: 95%;
@@ -240,28 +309,34 @@
                 padding: 15px 30px;
                 font-size: 1.2em;
             }
+            .faq-item h3 {
+                font-size: 1.2em;
+            }
+            .countdown {
+                font-size: 1.5em;
+            }
         }
 
         /* Anpassungen für Smartphones (breite 480px oder weniger) */
         @media (max-width: 480px) {
             header {
-                padding: 15px 0; /* Noch weniger Padding im Header für kleine Smartphones */
+                padding: 15px 0;
             }
             header h1 {
-                font-size: 2em; /* H1 auf Smartphones noch kleiner */
+                font-size: 2em;
                 letter-spacing: 1px;
             }
             header p {
-                font-size: 0.85em; /* Untertitel auf Smartphones noch kleiner */
+                font-size: 0.85em;
             }
             .snowflakes {
-                display: none; /* Schneeflocken auf kleinen Bildschirmen ausblenden */
+                display: none;
             }
             h2 {
                 font-size: 1.7em;
             }
             h2::after, h2::before {
-                display: none; /* Sterne auf sehr kleinen Screens ausblenden */
+                display: none;
             }
             .section-description {
                 font-size: 1em;
@@ -274,6 +349,18 @@
                 padding: 12px 20px;
                 font-size: 1em;
             }
+            .faq-item h3 {
+                font-size: 1.1em;
+            }
+            .countdown-info {
+                font-size: 0.9em;
+            }
+            .countdown {
+                font-size: 1.2em;
+            }
+            .countdown-item {
+                margin: 0 5px;
+            }
         }
     </style>
 </head>
@@ -282,7 +369,10 @@
         <h1>Weihnachtskonvoi <span>Efringen-Kirchen</span></h1>
         <p>Ein magisches Erlebnis für die ganze Familie – Live dabei!</p>
         
-<div class="snowflakes" aria-hidden="true">
+        <p class="countdown-info">(KI Beispieldatum: 17. Dezember 2025) Der Konvoi startet in:</p>
+        <div id="countdown" class="countdown"></div>
+
+        <div class="snowflakes" aria-hidden="true">
             <div class="snowflake">❅</div>
             <div class="snowflake">❆</div>
             <div class="snowflake">❄</div>
@@ -319,6 +409,37 @@
             (KI Textbeispiel:) Hinweis: Die Bilder dienen nur als visuelle Beispiele.
         </p>
 
+        <h2>(KI Textbeispiel:) Streckenverlauf & Zeitplan</h2>
+        <p class="section-description">
+            Hier finden Sie den voraussichtlichen Streckenverlauf und die geschätzten Ankunftszeiten, damit Sie den Konvoi optimal miterleben können.
+        </p>
+        <ul class="faq-list">
+            <li class="faq-item">
+                <h3>Efringen-Kirchen Zentrum:</h3>
+                <p>Start um ca. 17:00 Uhr</p>
+            </li>
+            <li class="faq-item">
+                <h3>Kirchen:</h3>
+                <p>Ankunft ca. 17:30 Uhr</p>
+            </li>
+            <li class="faq-item">
+                <h3>Istein:</h3>
+                <p>Ankunft ca. 18:00 Uhr</p>
+            </li>
+            <li class="faq-item">
+                <h3>Kleinkems:</h3>
+                <p>Ankunft ca. 18:30 Uhr</p>
+            </li>
+            <li class="faq-item">
+                <h3>Egringen:</h3>
+                <p>Ankunft ca. 19:00 Uhr</p>
+            </li>
+            <li class="faq-item">
+                <h3>Blansingen:</h3>
+                <p>Ankunft ca. 19:30 Uhr</p>
+            </li>
+        </ul>
+
         <h2>(KI Textbeispiel:) Aktueller Standort des Konvois</h2>
         <p class="section-description">
             Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten zujubeln können.
@@ -329,6 +450,44 @@
             Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
         </p>
         <a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a>
+
+        ---
+
+        <h2>(KI Textbeispiel:) Häufig gestellte Fragen (FAQ)</h2>
+        <ul class="faq-list">
+            <li class="faq-item">
+                <h3>Wann und wo startet der Konvoi?</h3>
+                <p>Der Konvoi startet in Efringen-Kirchen um ca. 17:00 Uhr. Die genaue Route finden Sie im Abschnitt "Streckenverlauf & Zeitplan".</p>
+            </li>
+            <li class="faq-item">
+                <h3>Findet der Konvoi bei jedem Wetter statt?</h3>
+                <p>Ja, der Konvoi findet bei jedem Wetter statt. Nur bei extremen Unwetterwarnungen könnte er kurzfristig verschoben oder abgesagt werden. Aktuelle Informationen finden Sie hier auf der Website.</p>
+            </li>
+            <li class="faq-item">
+                <h3>Gibt es etwas zu beachten?</h3>
+                <p>Bitte halten Sie genügend Abstand zu den Fahrzeugen und achten Sie besonders auf Kinder am Straßenrand. Genießen Sie die Lichtershow und haben Sie eine schöne Zeit!</p>
+            </li>
+        </ul>
+
+        ---
+
+        <h2>(KI Textbeispiel:) Ihre Momente – Teilen Sie Ihre Fotos!</h2>
+        <p class="section-description">
+            Sie haben ein tolles Foto oder Video vom Weihnachtskonvoi gemacht? Dann teilen Sie es mit uns und der ganzen Gemeinde!
+        </p>
+        <p class="section-description">
+            Verwenden Sie dafür den Hashtag:
+        </p>
+        <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
+        <p class="section-description">
+            Oder folgen Sie uns auf Instagram für weitere Impressionen und Neuigkeiten:
+        </p>
+        <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank">
+            <img src="https://img.freepik.com/vektoren-premium/instagram-vektor-logo-symbol-social-media-logotyp_901408-392.jpg" alt="Instagram Logo">
+        </a>
+        <p class="section-description">
+            Wir freuen uns darauf, Ihre festlichen Momente zu sehen!
+        </p>
 
     </div>
 
@@ -348,6 +507,34 @@
                 snowflakesContainer.appendChild(snowflake);
             }
         }
+        
+        // Countdown-Funktion
+        const countdownElement = document.getElementById('countdown');
+        // VORSICHT: Dies ist ein KI-Beispiel. Das Datum wurde auf den 17.12.2025 17:00:00 Uhr gesetzt.
+        // Bitte das Datum und die Uhrzeit des Konvois hier anpassen.
+        const countdownDate = new Date("December 17, 2025 17:00:00").getTime();
+        
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                countdownElement.innerHTML = "Der Konvoi ist unterwegs!";
+            } else {
+                countdownElement.innerHTML = `
+                    <div class="countdown-item">${days}<span>Tage</span></div>
+                    <div class="countdown-item">${hours}<span>Stunden</span></div>
+                    <div class="countdown-item">${minutes}<span>Minuten</span></div>
+                    <div class="countdown-item">${seconds}<span>Sekunden</span></div>
+                `;
+            }
+        }, 1000);
     </script>
 </body>
 </html>
