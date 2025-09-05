@@ -1,113 +1,340 @@
 <!DOCTYPE html>
-
 <html lang="de">
-
 <head>
+    <meta charset="UTF-8">
+    <title>Weihnachtskonvoi Efringen-Kirchen - Live Tracking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #C62828;
+            --dark-red: #B71C1C;
+            --light-grey: #F5F5F5;
+            --dark-grey: #333;
+            --text-color: #444;
+            --christmas-green: #2e7d32;
+            --christmas-gold: #ffc107;
+            --christmas-gold-dark: #e6a800;
+        }
 
-  <meta charset="UTF-8">
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-grey);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://ais.badische-zeitung.de/piece/0b/de/7e/a2/199130786.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
 
-  <title>Feuerwehr Konvoi Live</title>
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.75);
+            z-index: -1;
+        }
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        header {
+            background: linear-gradient(to right, var(--primary-red), var(--christmas-green));
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
 
-  <style>
+        header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4em;
+            margin: 0;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        }
+        
+        header h1 span {
+            color: var(--christmas-gold);
+        }
 
-    body {
+        header p {
+            font-size: 1.3em;
+            margin-top: 10px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
 
-      margin: 0;
+        .container {
+            flex-grow: 1;
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            line-height: 1.8;
+        }
 
-      font-family: Arial, sans-serif;
+        h2 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--primary-red);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--christmas-green);
+            padding-bottom: 15px;
+            display: inline-block;
+            position: relative;
+        }
+        h2::after {
+            content: '⭐';
+            position: absolute;
+            right: -30px;
+            bottom: 5px;
+            font-size: 0.6em;
+            color: var(--christmas-gold);
+        }
+        h2::before {
+            content: '⭐';
+            position: absolute;
+            left: -30px;
+            bottom: 5px;
+            font-size: 0.6em;
+            color: var(--christmas-gold);
+        }
 
-      background: #f5f5f5;
+        .section-description {
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-      display: flex;
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .image-gallery img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            border: 3px solid var(--christmas-green);
+        }
+        .image-gallery .wappen {
+            object-fit: contain;
+            background-color: #fff; /* Hintergrundfarbe für Wappen-Bild */
+        }
 
-      flex-direction: column;
+        .image-note {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 40px;
+        }
 
-      height: 100vh;
+        iframe {
+            width: 100%;
+            height: 550px;
+            border: 6px solid var(--christmas-green);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            margin-bottom: 35px;
+        }
 
-      justify-content: center;
+        a.button {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 1.4em;
+            color: white;
+            background-color: var(--christmas-green);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+            margin-top: 20px;
+        }
 
-      align-items: center;
+        a.button:hover {
+            background-color: #1b5e20;
+            transform: translateY(-5px);
+        }
 
-      text-align: center;
+        /* Schneeflocken-Animation */
+        .snowflake {
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 3px rgba(0,0,0,0.2);
+            position: absolute;
+            top: -10px;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
 
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3em;
+            }
+            header p {
+                font-size: 1.1em;
+            }
+            .container {
+                width: 95%;
+                padding: 25px;
+            }
+            h2 {
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+            h2::after, h2::before {
+                font-size: 0.5em;
+                right: -20px;
+                left: -20px;
+            }
+            .image-gallery {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-gallery img {
+                max-width: 90%;
+            }
+            iframe {
+                height: 450px;
+            }
+            a.button {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+        }
 
-    h1 {
-
-      color: #d32f2f;
-
-      font-size: 2.5em;
-
-      margin-bottom: 20px;
-
-    }
-
-    iframe {
-
-      width: 90%;
-
-      height: 70%;
-
-      border: 5px solid #d32f2f;
-
-      border-radius: 10px;
-
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-
-    }
-
-    p {
-
-      font-size: 1.2em;
-
-      margin: 20px 0;
-
-    }
-
-    a.button {
-
-      display: inline-block;
-
-      padding: 15px 30px;
-
-      font-size: 1.2em;
-
-      color: white;
-
-      background-color: #d32f2f;
-
-      border-radius: 8px;
-
-      text-decoration: none;
-
-      transition: background-color 0.3s;
-
-    }
-
-    a.button:hover {
-
-      background-color: #b71c1c;
-
-    }
-
-  </style>
-
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+            header p {
+                font-size: 0.9em;
+            }
+            h2 {
+                font-size: 1.7em;
+            }
+            h2::after, h2::before {
+                display: none;
+            }
+            .section-description {
+                font-size: 1em;
+            }
+            iframe {
+                height: 350px;
+            }
+            a.button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <h1>Weihnachtskonvoi <span>Efringen-Kirchen</span></h1>
+        <p>Ein magisches Erlebnis für die ganze Familie – Live dabei!</p>
+        
+<div class="snowflakes" aria-hidden="true">
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❆</div>
+            <div class="snowflake">❄</div>
+        </div>
+    </header>
 
-  <h1>Feuerwehr Konvoi Live</h1>
+    <div class="container">
+        (KI Textbeispiel:)
+        <p class="section-description">
+            Herzlich willkommen zum offiziellen Live-Tracking des Weihnachtskonvois Efringen-Kirchen! Jedes Jahr aufs Neue verwandeln wir unsere Gemeinde in ein funkelndes Winterwunderland. Begleiten Sie uns auf unserer festlichen Tour, wenn unsere beleuchteten Fahrzeuge durch die Straßen ziehen und Weihnachtsstimmung verbreiten. Ein besonderer Dank gilt allen ehrenamtlichen Helfern, die dieses magische Ereignis ermöglichen!
+        </p>
 
-  <p>Hier kannst du den aktuellen Standort des Konvois verfolgen:</p>
+        <h2>(KI Textbeispiel:) Unser Konvoi – Eine Tradition voller Herz</h2>
+        <p class="section-description">
+            Der Weihnachtskonvoi ist mehr als nur eine Lichterfahrt. Er ist ein Zeichen der Gemeinschaft, der Freude und der Solidarität in unserer schönen Gemeinde Efringen-Kirchen. Werden Sie Teil dieser wundervollen Tradition!
+        </p>
 
-  <iframe src="https://glympse.com/BAo--FnL2" allowfullscreen loading="lazy"></iframe>
+        <h2>(KI Textbeispiel:) Impressionen vergangener Jahre</h2>
+        <div class="image-gallery">
+            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
+            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
+            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
+        </div>
+        <p class="image-note">
+            (KI Textbeispiel:) Hinweis: Die Bilder dienen nur als visuelle Beispiele.
+        </p>
 
-  <p><a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a></p>
+        <h2>(KI Textbeispiel:) Aktueller Standort des Konvois</h2>
+        <p class="section-description">
+            Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten zujubeln können.
+        </p>
+        <iframe src="https://glympse.com/BAo--FnL2" allowfullscreen loading="lazy"></iframe>
+        
+        <p>
+            Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
+        </p>
+        <a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a>
 
+    </div>
+
+    <script>
+        const snowflakesContainer = document.querySelector('.snowflakes');
+        if (snowflakesContainer) {
+            const numSnowflakes = 30;
+            for (let i = 0; i < numSnowflakes; i++) {
+                let snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = ['❅', '❆', '❄'][Math.floor(Math.random() * 3)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 5) + 's';
+                snowflake.style.fontSize = (Math.random() * 0.8 + 0.6) + 'em';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+    </script>
 </body>
-
 </html>
-
-
