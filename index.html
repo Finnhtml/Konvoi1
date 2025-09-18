@@ -536,8 +536,11 @@
         // HINWEIS: Hier beginnt der Code zum Laden des Links
         const iframe = document.getElementById('glympse-iframe');
         const button = document.getElementById('glympse-button');
-        const fallbackLink = "https://glympse.com/BAo--FnL2";
 
+        // Fallback-Link für den Fall, dass der Abruf fehlschlägt
+        const fallbackLink = "https://glympse.com/FESTLICHES-BEISPIEL";
+
+        // Hier ist die Datei-ID von Ihrem Google Drive Link eingefügt.
         const linkFileUrl = "https://drive.google.com/uc?export=download&id=1MVJHZ_5OKrkZ7aOX44CnhzSf_opD7mM1";
 
         function updateGlympse() {
@@ -554,12 +557,14 @@
                          iframe.src = finalLink;
                          button.href = finalLink;
                     } else {
+                         // Fallback, wenn der abgerufene Text kein gültiger Link ist
                          iframe.src = fallbackLink;
                          button.href = fallbackLink;
                     }
                 })
                 .catch(error => {
                     console.error('Fehler beim Abrufen des Links:', error);
+                    // Fallback, wenn der Abruf ganz fehlschlägt
                     iframe.src = fallbackLink;
                     button.href = fallbackLink;
                 });
