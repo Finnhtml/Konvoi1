@@ -76,6 +76,16 @@
             font-weight: 300;
         }
 
+        /* NEUE STYLES FÜR DEN AUDIOPLAYER CONTAINER */
+        .audio-player-container {
+            width: 90%;
+            max-width: 500px; /* Begrenzt die Breite des Players */
+            margin: 20px auto 30px auto; /* Zentriert und gibt Abstand zum Header/Container */
+            z-index: 3; /* Sorgt dafür, dass der Player über dem Hintergrund ist */
+            position: relative;
+        }
+        /* ENDE NEUE STYLES */
+
         .container {
             flex-grow: 1;
             width: 90%;
@@ -280,6 +290,11 @@
             header p {
                 font-size: 1em;
             }
+            .audio-player-container { /* Anpassung für Tablets */
+                max-width: 85%;
+                margin-top: 15px;
+                margin-bottom: 25px;
+            }
             .container {
                 width: 95%;
                 padding: 25px;
@@ -331,6 +346,11 @@
             }
             .snowflakes {
                 display: block; /* Schneeflocken auf Handys wieder anzeigen */
+            }
+            .audio-player-container { /* Anpassung für Smartphones */
+                max-width: 95%;
+                margin-top: 10px;
+                margin-bottom: 20px;
             }
             h2 {
                 font-size: 1.7em;
@@ -389,6 +409,9 @@
         </div>
     </header>
 
+    <div class="audio-player-container">
+        <div class="elfsight-app-20be1e2f-983f-4a0a-960c-b748f98e0d4b" data-elfsight-app-lazy></div>
+    </div>
     <div class="container">
         (KI Textbeispiel:)
         <p class="section-description">
@@ -452,7 +475,7 @@
         </p>
         <a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a>
 
-        ---
+        
 
         <h2>(KI Textbeispiel:) Häufig gestellte Fragen (FAQ)</h2>
         <ul class="faq-list">
@@ -481,7 +504,7 @@
         </p>
         <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
         <p class="section-description">
-            Oder folgen Sie uns auf Instagram für weitere Impressionen und Neuigkeiten:
+            Folgen Sie gerne uns auf Instagram für weitere Impressionen und Neuigkeiten:
         </p>
         <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank">
             <img src="https://img.freepik.com/vektoren-premium/instagram-vektor-logo-symbol-social-media-logotyp_901408-392.jpg" alt="Instagram Logo">
@@ -513,7 +536,7 @@
         const countdownElement = document.getElementById('countdown');
         // VORSICHT: Dies ist ein KI-Beispiel. Das Datum wurde auf den 21.12.2025 17:00:00 Uhr gesetzt.
         // Bitte das Datum und die Uhrzeit des Konvois hier anpassen.
-        const countdownDate = new Date("December 21, 2025 17:00:00").getTime();
+        const countdownDate = new Date("December 21, 2025 16:45:00").getTime();
         
         const updateCountdown = setInterval(function() {
             const now = new Date().getTime();
@@ -537,5 +560,7 @@
             }
         }, 1000);
     </script>
-</body>
+
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    </body>
 </html>
