@@ -382,6 +382,98 @@
                 margin: 0 5px;
             }
         }
+
+        /* FOOTER & DATENSCHUTZ STYLES (neu) */
+        footer {
+            background: rgba(34,34,34,0.95);
+            color: #fff;
+            padding: 18px 0;
+            position: relative;
+            z-index: 3;
+            margin-top: 30px;
+        }
+        footer .footer-inner {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        footer .footer-links {
+            text-align: center;
+        }
+        footer .footer-links a {
+            color: var(--christmas-gold);
+            margin: 0 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        footer .footer-note {
+            font-size: 0.9em;
+            color: #ddd;
+        }
+
+        /* Impressum / Datenschutz Sektionen */
+        #impressum, #datenschutz {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 24px;
+            background-color: rgba(255,255,255,0.98);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            text-align: left;
+            line-height: 1.6;
+        }
+        #impressum h3, #datenschutz h3 {
+            margin-top: 0;
+            color: var(--primary-red);
+            font-family: 'Oswald', sans-serif;
+        }
+
+        /* Cookie-Banner */
+        .cookie-banner {
+            position: fixed;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 14px;
+            z-index: 9999;
+            max-width: calc(100% - 40px);
+        }
+        .cookie-banner p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #222;
+            flex: 1 1 auto;
+        }
+        .cookie-banner .btn {
+            background: var(--christmas-green);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .cookie-banner .btn.secondary {
+            background: transparent;
+            color: #444;
+            border: 1px solid #ddd;
+        }
+        @media (max-width: 480px) {
+            .cookie-banner { flex-direction: column; align-items: stretch; }
+            .cookie-banner .btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -511,8 +603,12 @@
         </a>
         <p class="section-description">
             Wir freuen uns darauf, Ihre festlichen Momente zu sehen!
+            
         </p>
-
+<p class="section-description">
+            Hinweis: Diese Website wird Privat für den 
+            Weihnachtskonvoi Efringen-Kirchen betrieben und ist nicht offiziell mit der Feuerwehr Efringen-Kirchen verbunden.
+        </p>
     </div>
 
     <script>
@@ -561,6 +657,104 @@
         }, 1000);
     </script>
 
-    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <!-- Elfsight wird nun nur geladen, wenn Cookie-Zustimmung erteilt wurde (siehe Datenschutz / Cookie-Banner) -->
+    <script>
+        // Lädt Elfsight-Platform (Widget) dynamisch
+        function loadElfsight() {
+            if (document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')) return;
+            var s = document.createElement('script');
+            s.src = 'https://elfsightcdn.com/platform.js';
+            s.async = true;
+            document.body.appendChild(s);
+        }
+
+        // Cookie-Banner-Logik
+        (function () {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent !== 'true') {
+                // Banner erstellen
+                const banner = document.createElement('div');
+                banner.className = 'cookie-banner';
+                banner.innerHTML = `
+                    <p>Wir verwenden auf dieser Website externe Dienste (z. B. Widgets, Karten, Schriften), die Daten an Dritte übertragen können. Mit "Akzeptieren" stimmen Sie der Verwendung zu. Mehr Informationen finden Sie in unserer <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+                    <div>
+                        <button class="btn secondary" id="cookie-decline">Ablehnen</button>
+                        <button class="btn" id="cookie-accept">Akzeptieren</button>
+                    </div>
+                `;
+                document.body.appendChild(banner);
+
+                document.getElementById('cookie-accept').addEventListener('click', function () {
+                    localStorage.setItem('cookieConsent', 'true');
+                    banner.remove();
+                    // Event auslösen, damit andere Skripte darauf reagieren können
+                    window.dispatchEvent(new Event('cookieConsentAccepted'));
+                    // sofort Elfsight laden
+                    loadElfsight();
+                });
+                document.getElementById('cookie-decline').addEventListener('click', function () {
+                    localStorage.setItem('cookieConsent', 'false');
+                    banner.remove();
+                });
+            } else if (consent === 'true') {
+                // Bereits zugestimmt: Elfsight laden
+                loadElfsight();
+            }
+        })();
+    </script>
+
+    <!-- IMPRESSUM & DATENSCHUTZ (steht unten auf der Seite) -->
+    <section id="impressum" aria-labelledby="impressum-title">
+        <h3 id="impressum-title">Impressum</h3>
+        <p>Betreiber der Website (privat betrieben):</p>
+        <p>Finn Wasmer<br>
+       Blauenblick 4/2<br>
+        79588 Efringen-Kirchen</p>
+        <p>Kontakt: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a></p>
+        <p>Hinweis: Diese Website ist eine private Informationsseite zum Weihnachtskonvoi und nicht offiziell mit der Freiwilligen Feuerwehr Efringen-Kirchen verbunden.</p>
+    </section>
+
+    <section id="datenschutz" aria-labelledby="datenschutz-title">
+        <h3 id="datenschutz-title">Datenschutzerklärung</h3>
+        <p>Diese Datenschutzerklärung informiert über Art, Umfang und Zweck der Verarbeitung personenbezogener Daten auf dieser Website.</p>
+
+        <h4>1. Verantwortlicher</h4>
+        <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist der oben genannte Betreiber (siehe Impressum).</p>
+
+        <h4>2. Server-Logfiles</h4>
+        <p>Beim Besuch der Website werden automatisch Informationen in sogenannten Server-Logfiles erhoben und gespeichert (z. B. IP-Adresse, Uhrzeit, angeforderte Datei). Diese Daten werden ausschließlich zur Gewährleistung eines störungsfreien Betriebs sowie zur Verbesserung des Angebots ausgewertet.</p>
+
+        <h4>3. Externe Inhalte & Dienste</h4>
+        <ul>
+            <li><strong>Glympse (eingebettete Karte / Live-Tracking):</strong> Das iframe lädt Inhalte von glympse.com. Beim Laden werden Verbindungsdaten an den Drittanbieter übertragen. Bitte beachten Sie die Datenschutzhinweise von Glympse.</li>
+            <li><strong>Elfsight Widget (Audio-Player):</strong> Das Widget wird nur geladen, wenn Sie im Cookie-Banner zustimmen. Elfsight kann personenbezogene Daten verarbeiten (z. B. für Widget-Funktionalitäten). Details regelt die Datenschutzerklärung von Elfsight.</li>
+            <li><strong>Google Fonts / Schriftarten:</strong> Webfonts werden von fonts.googleapis.com bzw. fonts.gstatic.com nachgeladen. Dabei werden Verbindungsdaten an Google übermittelt.</li>
+            <li><strong>Externe Bilder:</strong> Einige Bilder/Icons werden von externen Quellen geladen (z. B. Wikimedia, Freepik). Beim Laden werden Daten an die jeweiligen Server übertragen.</li>
+        </ul>
+
+        <h4>4. Cookies</h4>
+        <p>Diese Seite nutzt Cookies nur mit Ihrer Einwilligung (siehe Cookie-Banner). Ohne Zustimmung werden Widgets und Skripte, die Daten an Dritte senden könnten, nicht automatisch geladen.</p>
+
+        <h4>5. Rechtsgrundlage & Betroffenenrechte</h4>
+        <p>Rechtsgrundlage für die Verarbeitung personenbezogener Daten ist Art. 6 DSGVO (z. B. berechtigtes Interesse oder Einwilligung). Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Beschwerde bei der Aufsichtsbehörde.</p>
+
+        <h4>6. Kontakt</h4>
+        <p>Bei Fragen zum Datenschutz können Sie sich an die im Impressum genannte Kontaktadresse wenden.</p>
+
+        <p><strong>Änderungen:</strong> Diese Datenschutzerklärung kann von Zeit zu Zeit angepasst werden. Bitte prüfen Sie die Erklärung regelmäßig.</p>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="#impressum">Impressum</a>
+                <a href="#datenschutz">Datenschutz</a>
+            </div>
+            <div class="footer-note">
+                &copy; 2025 Weihnachtskonvoi Efringen‑Kirchen — Privat betrieben
+            </div>
+        </div>
+    </footer>
+
     </body>
 </html>
