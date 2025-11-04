@@ -17,6 +17,7 @@
             --christmas-gold-dark: #e6a800;
         }
 
+        /* Grundlayout */
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
@@ -29,6 +30,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            /* Auf mobilen Geräten verhindert fixed häufiges Repainting -> scroll auf kleineren viewports */
             background-attachment: fixed;
             position: relative;
             overflow-x: hidden;
@@ -48,7 +50,7 @@
         header {
             background: linear-gradient(to right, var(--primary-red), var(--christmas-green));
             color: white;
-            padding: 25px 0;
+            padding: 20px 12px;
             text-align: center;
             box-shadow: 0 6px 12px rgba(0,0,0,0.25);
             position: relative;
@@ -58,11 +60,12 @@
 
         header h1 {
             font-family: 'Oswald', sans-serif;
-            font-size: 4em;
+            font-size: 3.2rem;
             margin: 0;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-            text-wrap: balance;
+            line-height: 1.05;
+            word-break: break-word;
         }
         
         header h1 span {
@@ -70,109 +73,103 @@
         }
 
         header p {
-            font-size: 1.3em;
-            margin-top: 10px;
+            font-size: 1rem;
+            margin-top: 8px;
             opacity: 0.95;
             font-weight: 300;
         }
 
-        /* NEUE STYLES FÜR DEN AUDIOPLAYER CONTAINER */
+        /* Audio Player Container */
         .audio-player-container {
             width: 90%;
-            max-width: 500px; /* Begrenzt die Breite des Players */
-            margin: 20px auto 30px auto; /* Zentriert und gibt Abstand zum Header/Container */
-            z-index: 3; /* Sorgt dafür, dass der Player über dem Hintergrund ist */
+            max-width: 500px;
+            margin: 18px auto;
+            z-index: 3;
             position: relative;
         }
-        /* ENDE NEUE STYLES */
 
-        /* Auffälliges Share-Banner (Hashtag + Instagram) */
+        /* Share-Banner */
         .share-banner {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 12px;
             background: linear-gradient(90deg, var(--christmas-gold), var(--christmas-gold-dark));
             color: #111;
-            padding: 12px 18px;
+            padding: 10px 14px;
             border-radius: 999px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-            margin: 16px auto 0;
-            max-width: 900px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+            margin: 12px auto 0;
+            max-width: 980px;
             font-weight: 700;
             z-index: 4;
+            font-size: 0.98rem;
         }
+
         .share-banner .hashtag {
             background: rgba(255,255,255,0.95);
             color: var(--text-color);
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 999px;
-            font-size: 1.25em;
+            font-size: 1.05rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
-        .share-banner .share-text {
-            font-size: 1em;
-            color: rgba(0,0,0,0.8);
-        }
+
         .share-banner .social-link img {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             border-radius: 8px;
             border: 2px solid rgba(255,255,255,0.6);
             box-shadow: 0 6px 18px rgba(0,0,0,0.15);
         }
-        @media (max-width: 480px) {
-            .share-banner { flex-direction: column; gap: 8px; padding: 10px; }
-            .share-banner .hashtag { font-size: 1.05em; }
-        }
 
         .container {
             flex-grow: 1;
-            width: 90%;
+            width: 94%;
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 40px;
+            margin: 20px auto;
+            padding: 28px;
             background-color: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.12);
             text-align: center;
             position: relative;
             z-index: 2;
-            line-height: 1.8;
+            line-height: 1.7;
             box-sizing: border-box;
         }
 
         h2 {
             font-family: 'Oswald', sans-serif;
             color: var(--primary-red);
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            border-bottom: 4px solid var(--christmas-green);
-            padding-bottom: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 18px;
+            border-bottom: 3px solid var(--christmas-green);
+            padding-bottom: 10px;
             display: inline-block;
             position: relative;
         }
         h2::after {
             content: '⭐';
             position: absolute;
-            right: -30px;
-            bottom: 5px;
-            font-size: 0.6em;
+            right: -24px;
+            bottom: 3px;
+            font-size: 0.7em;
             color: var(--christmas-gold);
         }
         h2::before {
             content: '⭐';
             position: absolute;
-            left: -30px;
-            bottom: 5px;
-            font-size: 0.6em;
+            left: -24px;
+            bottom: 3px;
+            font-size: 0.7em;
             color: var(--christmas-gold);
         }
 
         .section-description {
-            font-size: 1.15em;
-            line-height: 1.7;
-            margin-bottom: 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -181,18 +178,19 @@
         .image-gallery {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 14px;
             margin-bottom: 10px;
             flex-wrap: wrap;
         }
         .image-gallery img {
             width: 100%;
-            max-width: 300px;
-            height: 200px;
+            max-width: 320px;
+            height: auto; /* wichtig für responsive Darstellung */
             object-fit: cover;
+            aspect-ratio: 4/3;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            transition: transform 0.25s ease;
             border: 3px solid var(--christmas-green);
         }
         .image-gallery .wappen {
@@ -202,39 +200,39 @@
 
         .image-note {
             font-size: 0.9em;
-            color: #777;
-            margin-bottom: 40px;
+            color: #666;
+            margin-bottom: 28px;
         }
 
+        /* Responsive iframe: nutzt aspect-ratio für saubere Skalierung */
         iframe {
             width: 100%;
-            height: 550px;
+            aspect-ratio: 16/9;
+            height: auto;
             border: 6px solid var(--christmas-green);
             border-radius: 12px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.35);
-            margin-bottom: 35px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.28);
+            margin-bottom: 28px;
         }
 
         a.button {
             display: inline-block;
-            padding: 20px 40px;
-            font-size: 1.4em;
+            padding: 14px 28px;
+            font-size: 1.1rem;
             color: white;
             background-color: var(--christmas-green);
             border-radius: 10px;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.25s ease, transform 0.15s ease;
             font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-            margin-top: 20px;
+            letter-spacing: 0.6px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.18);
+            margin-top: 12px;
         }
 
-        a.button:hover {
-            background-color: #1b5e20;
-            transform: translateY(-5px);
-        }
+        a.button:active { transform: translateY(1px); }
 
+        /* Schneeflocken */
         .snowflake {
             color: #fff;
             font-size: 1em;
@@ -242,277 +240,72 @@
             text-shadow: 0 0 3px rgba(0,0,0,0.2);
             position: absolute;
             top: -10px;
-            animation: fall linear infinite;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
             pointer-events: none;
             z-index: 1;
+            will-change: transform, opacity;
         }
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
-        }
-        
-        .faq-list {
-            text-align: left;
-            margin: 0 auto;
-            max-width: 800px;
-            list-style: none;
-            padding: 0;
-        }
-        .faq-item {
-            margin-bottom: 25px;
-        }
-        .faq-item h3 {
-            color: var(--christmas-green);
-            font-size: 1.4em;
-            border-bottom: 2px solid var(--christmas-gold);
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
         }
 
-        .hashtag {
-            background-color: var(--christmas-gold);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
+        /* Countdown / FAQ / Footer ... (kleinere Anpassungen) */
+        .faq-list { text-align: left; margin: 0 auto; max-width: 800px; list-style: none; padding: 0; }
+        .faq-item { margin-bottom: 18px; }
+        .faq-item h3 { color: var(--christmas-green); font-size: 1.1rem; border-bottom: 2px solid var(--christmas-gold); padding-bottom: 6px; margin-bottom: 8px; }
 
-        .social-link {
-            display: inline-block;
-            margin-top: 15px;
-            margin-bottom: 20px;
-        }
-        .social-link img {
-            width: 50px;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-        .social-link img:hover {
-            transform: scale(1.1);
-        }
+        .countdown-info { color: white; font-size: 0.95rem; margin-top: 8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .countdown { font-family: 'Oswald', sans-serif; font-size: 1.6rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
+        .countdown-item { display: inline-block; margin: 0 8px; }
+        .countdown-item span { display: block; font-size: 0.55em; font-weight: 300; text-transform: uppercase; }
 
-        .countdown-info {
-            color: white;
-            font-size: 1.1em;
-            margin-top: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        .countdown {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2em;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        .countdown-item {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        .countdown-item span {
-            display: block;
-            font-size: 0.5em;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-        
-        /* Anpassungen für Tablets (breite 768px oder weniger) */
+        /* Cookie-Banner: größere Buttons auf Touchgeräten */
+        .cookie-banner { position: fixed; left: 12px; right: 12px; bottom: 12px; background: #fff; border-radius: 12px; box-shadow: 0 10px 36px rgba(0,0,0,0.18); display: flex; gap: 12px; align-items: center; padding: 12px; z-index: 9999; max-width: calc(100% - 24px); }
+        .cookie-banner p { margin: 0; font-size: 0.95rem; color: #222; flex: 1 1 auto; }
+        .cookie-banner .btn { background: var(--christmas-green); color: #fff; border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.95rem; }
+        .cookie-banner .btn.secondary { background: transparent; color: #444; border: 1px solid #ddd; padding: 10px 12px; }
+
+        footer { background: rgba(34,34,34,0.95); color: #fff; padding: 14px 0; position: relative; z-index: 3; margin-top: 20px; }
+        footer .footer-inner { width: 94%; max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+        footer .footer-links a { color: var(--christmas-gold); margin: 0 8px; text-decoration: none; font-weight: 600; }
+
+        /* Impressum / Datenschutz */
+        #impressum, #datenschutz { width: 94%; max-width: 1200px; margin: 20px auto; padding: 18px; background-color: rgba(255,255,255,0.98); border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); text-align: left; line-height: 1.6; }
+
+        /* Mobile-first Anpassungen */
         @media (max-width: 768px) {
-            header {
-                padding: 20px 0;
-            }
-            header h1 {
-                font-size: 2.8em;
-            }
-            header p {
-                font-size: 1em;
-            }
-            .audio-player-container { /* Anpassung für Tablets */
-                max-width: 85%;
-                margin-top: 15px;
-                margin-bottom: 25px;
-            }
-            .container {
-                width: 95%;
-                padding: 25px;
-                margin: 20px auto;
-            }
-            h2 {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-            h2::after, h2::before {
-                font-size: 0.5em;
-                right: -20px;
-                left: -20px;
-            }
-            .image-gallery {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .image-gallery img {
-                max-width: 90%;
-            }
-            iframe {
-                height: 450px;
-            }
-            a.button {
-                padding: 15px 30px;
-                font-size: 1.2em;
-            }
-            .faq-item h3 {
-                font-size: 1.2em;
-            }
-            .countdown {
-                font-size: 1.5em;
-            }
+            header h1 { font-size: 2.4rem; }
+            header p { font-size: 0.95rem; }
+            .image-gallery img { max-width: 90%; aspect-ratio: 4/3; }
+            iframe { aspect-ratio: 16/9; }
+            .share-banner { padding: 10px; gap: 8px; font-size: 0.95rem; }
+            .cookie-banner { left: 10px; right: 10px; bottom: 10px; padding: 12px; }
         }
 
-        /* Anpassungen für Smartphones (breite 480px oder weniger) */
         @media (max-width: 480px) {
-            header {
-                padding: 15px 0;
-            }
-            header h1 {
-                font-size: 2em;
-                letter-spacing: 1px;
-            }
-            header p {
-                font-size: 0.85em;
-            }
-            .snowflakes {
-                display: block; /* Schneeflocken auf Handys wieder anzeigen */
-            }
-            .audio-player-container { /* Anpassung für Smartphones */
-                max-width: 95%;
-                margin-top: 10px;
-                margin-bottom: 20px;
-            }
-            h2 {
-                font-size: 1.7em;
-            }
-            h2::after, h2::before {
-                display: none;
-            }
-            .section-description {
-                font-size: 1em;
-            }
-            iframe {
-                height: 350px;
-                border-width: 4px;
-            }
-            a.button {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-            .faq-item h3 {
-                font-size: 1.1em;
-            }
-            .countdown-info {
-                font-size: 0.9em;
-            }
-            .countdown {
-                font-size: 1.2em;
-            }
-            .countdown-item {
-                margin: 0 5px;
-            }
-        }
-
-        /* FOOTER & DATENSCHUTZ STYLES (neu) */
-        footer {
-            background: rgba(34,34,34,0.95);
-            color: #fff;
-            padding: 18px 0;
-            position: relative;
-            z-index: 3;
-            margin-top: 30px;
-        }
-        footer .footer-inner {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        footer .footer-links {
-            text-align: center;
-        }
-        footer .footer-links a {
-            color: var(--christmas-gold);
-            margin: 0 12px;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        footer .footer-note {
-            font-size: 0.9em;
-            color: #ddd;
-        }
-
-        /* Impressum / Datenschutz Sektionen */
-        #impressum, #datenschutz {
-            width: 90%;
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 24px;
-            background-color: rgba(255,255,255,0.98);
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-            text-align: left;
-            line-height: 1.6;
-        }
-        #impressum h3, #datenschutz h3 {
-            margin-top: 0;
-            color: var(--primary-red);
-            font-family: 'Oswald', sans-serif;
-        }
-
-        /* Cookie-Banner */
-        .cookie-banner {
-            position: fixed;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding: 12px 14px;
-            z-index: 9999;
-            max-width: calc(100% - 40px);
-        }
-        .cookie-banner p {
-            margin: 0;
-            font-size: 0.95em;
-            color: #222;
-            flex: 1 1 auto;
-        }
-        .cookie-banner .btn {
-            background: var(--christmas-green);
-            color: #fff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .cookie-banner .btn.secondary {
-            background: transparent;
-            color: #444;
-            border: 1px solid #ddd;
-        }
-        @media (max-width: 480px) {
-            .cookie-banner { flex-direction: column; align-items: stretch; }
+            /* Vermeide heavy background-attachment auf Handys (leistungsfreundlicher) */
+            body { background-attachment: scroll; background-position: top center; }
+            header { padding: 12px 10px; }
+            header h1 { font-size: 1.6rem; letter-spacing: 0.5px; }
+            header p { font-size: 0.85rem; }
+            h2 { font-size: 1.2rem; border-bottom-width: 2px; }
+            h2::before, h2::after { display: none; }
+            .container { padding: 16px; margin: 12px auto; }
+            .image-gallery { gap: 10px; }
+            .image-gallery img { max-width: 100%; height: auto; border-width: 2px; }
+            iframe { border-width: 4px; aspect-ratio: 16/9; }
+            a.button { padding: 12px 18px; font-size: 1rem; }
+            .cookie-banner { flex-direction: column; align-items: stretch; padding: 10px; }
             .cookie-banner .btn { width: 100%; }
+        }
+
+        /* Respect prefers-reduced-motion -> keine Animationen */
+        @media (prefers-reduced-motion: reduce) {
+            .snowflake { animation: none !important; opacity: 0.9; }
+            * { scroll-behavior: auto; transition: none !important; animation-duration: 0s !important; }
         }
     </style>
 </head>
@@ -563,9 +356,9 @@
 
         <h2>(KI Textbeispiel:) Impressionen vergangener Jahre</h2>
         <div class="image-gallery">
-            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
-            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
-            <img class="wappen" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen">
+            <img class="wappen" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen" width="320" height="240">
+            <img class="wappen" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen" width="320" height="240">
+            <img class="wappen" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/DEU_Efringen-Kirchen_COA.svg" alt="Wappen von Efringen-Kirchen" width="320" height="240">
         </div>
         <p class="image-note">
             (KI Textbeispiel:) Hinweis: Die Bilder dienen nur als visuelle Beispiele.
@@ -609,9 +402,7 @@
         <iframe src="https://glympse.com/BAo--FnL2" allowfullscreen loading="lazy"></iframe>
         
         <p>
-            Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
-        </p>
-        <a class="button" href="https://glympse.com/BAo--FnL2" target="_blank">Konvoi in voller Ansicht öffnen</a>
+        >
 
         
 
@@ -646,49 +437,79 @@
     </div>
 
     <script>
-        const snowflakesContainer = document.querySelector('.snowflakes');
-        if (snowflakesContainer) {
-            const numSnowflakes = 30;
+        (function createSnowflakes() {
+            const snowflakesContainer = document.querySelector('.snowflakes');
+            if (!snowflakesContainer) return;
+
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const width = window.innerWidth || document.documentElement.clientWidth;
+            let numSnowflakes = 30;
+            if (width <= 480) numSnowflakes = 8;
+            else if (width <= 768) numSnowflakes = 16;
+
+            // Wenn reduced motion gewünscht, nur sehr wenige statische Symbole
+            if (prefersReduced) numSnowflakes = Math.min(6, numSnowflakes);
+
+            // Entferne ggf. vorhandene Flocken (bei Hot-Reload)
+            snowflakesContainer.innerHTML = '';
+
+            const symbols = ['❅', '❆', '❄'];
             for (let i = 0; i < numSnowflakes; i++) {
                 let snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
-                snowflake.innerHTML = ['❅', '❆', '❄'][Math.floor(Math.random() * 3)];
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                snowflake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                snowflake.style.left = (Math.random() * 100) + 'vw';
+                const dur = (Math.random() * 4 + 6); // 6s - 10s
+                snowflake.style.animationDuration = prefersReduced ? '0s' : dur + 's';
                 snowflake.style.animationDelay = (Math.random() * 5) + 's';
-                snowflake.style.fontSize = (Math.random() * 0.8 + 0.6) + 'em';
-                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+                snowflake.style.fontSize = (Math.random() * 0.9 + 0.6) + 'em';
+                snowflake.style.opacity = (Math.random() * 0.5 + 0.45).toString();
+
+                // Auf kleinen Bildschirmen weniger Höhenversatz
+                if (width <= 480) {
+                    snowflake.style.top = (-5 - Math.random() * 10) + 'vh';
+                }
+
+                if (prefersReduced) {
+                    // statisch leicht versetzt
+                    snowflake.style.position = 'absolute';
+                    snowflake.style.top = (5 + i * 4) + 'vh';
+                    snowflake.style.transform = 'none';
+                }
+
                 snowflakesContainer.appendChild(snowflake);
             }
-        }
-        
-        // Countdown-Funktion
-        const countdownElement = document.getElementById('countdown');
-        // VORSICHT: Dies ist ein KI-Beispiel. Das Datum wurde auf den 21.12.2025 17:00:00 Uhr gesetzt.
-        // Bitte das Datum und die Uhrzeit des Konvois hier anpassen.
-        const countdownDate = new Date("December 21, 2025 16:45:00").getTime();
-        
-        const updateCountdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if (distance < 0) {
-                clearInterval(updateCountdown);
-                countdownElement.innerHTML = "Der Konvoi ist unterwegs!";
-            } else {
-                countdownElement.innerHTML = `
-                    <div class="countdown-item">${days}<span>Tage</span></div>
-                    <div class="countdown-item">${hours}<span>Stunden</span></div>
-                    <div class="countdown-item">${minutes}<span>Minuten</span></div>
-                    <div class="countdown-item">${seconds}<span>Sekunden</span></div>
-                `;
-            }
-        }, 1000);
+        })();
+
+        // Countdown-Funktion (unverändert, nur als Selbstaufruf)
+        (function initCountdown(){
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+            // VORSICHT: Dies ist ein KI-Beispiel. Datum ggf. anpassen.
+            const countdownDate = new Date("December 21, 2025 16:45:00").getTime();
+
+            const updateCountdown = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (distance < 0) {
+                    clearInterval(updateCountdown);
+                    countdownElement.innerHTML = "Der Konvoi ist unterwegs!";
+                } else {
+                    countdownElement.innerHTML = `
+                        <div class="countdown-item">${days}<span>Tage</span></div>
+                        <div class="countdown-item">${hours}<span>Stunden</span></div>
+                        <div class="countdown-item">${minutes}<span>Minuten</span></div>
+                        <div class="countdown-item">${seconds}<span>Sekunden</span></div>
+                    `;
+                }
+            }, 1000);
+        })();
     </script>
 
     <!-- Elfsight wird nun nur geladen, wenn Cookie-Zustimmung erteilt wurde (siehe Datenschutz / Cookie-Banner) -->
