@@ -86,6 +86,46 @@
         }
         /* ENDE NEUE STYLES */
 
+        /* Auffälliges Share-Banner (Hashtag + Instagram) */
+        .share-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: linear-gradient(90deg, var(--christmas-gold), var(--christmas-gold-dark));
+            color: #111;
+            padding: 12px 18px;
+            border-radius: 999px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            margin: 16px auto 0;
+            max-width: 900px;
+            font-weight: 700;
+            z-index: 4;
+        }
+        .share-banner .hashtag {
+            background: rgba(255,255,255,0.95);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 1.25em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .share-banner .share-text {
+            font-size: 1em;
+            color: rgba(0,0,0,0.8);
+        }
+        .share-banner .social-link img {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.6);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+        @media (max-width: 480px) {
+            .share-banner { flex-direction: column; gap: 8px; padding: 10px; }
+            .share-banner .hashtag { font-size: 1.05em; }
+        }
+
         .container {
             flex-grow: 1;
             width: 90%;
@@ -485,6 +525,15 @@
         <p class="countdown-info">Der Konvoi startet in:</p>
         <div id="countdown" class="countdown"></div>
 
+        <!-- Prominentes Share-Banner mit Hashtag & Instagram -->
+        <div class="share-banner" role="region" aria-label="Fotos teilen">
+            <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
+            <span class="share-text">Teile deine Fotos auf Instagram und markiere uns</span>
+            <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" aria-label="Instagram öffnen">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABWVBMVEVyHVFHcEx0Fvp8Fv1yFP1/FfyLCOyfBOmtAeS7AuDHAd3UANjZAs7rD6xyFvzjANTqAMHoA7l2F/yPFfx8GPmfD/zFF/XVWujoZuLyZt3pRt/yGdHyA8j1AKTViPj/9Pr////8g9f9A7r3DZz5vO794Pf+ruj9B6uzFPv7JLv+AJr+BI/+YMP/1vD+AIThG+n9GZn/vd3/YZz+AXP+GoT/r8r+AmT/b5z+HHH+I3f+G2P/ur7+FFD+Klb+fYv/wcr+LUf+LWX+AFn+Nzr+Ohz+RT7+inP+Si7/ztD+TxL/zbv+Wy//9fH+WgL+c1X+ZyX+PUv+Bzv+VXD+cxr/6eL+aQT+eAX+nDj+gwD+gxH+fSL+rYn+jwD+iwL+XhX/3rn/1bH9ZR/+lwP+nwH+xHH8ZC3+qAH+sAD+wAP+x1P+zGb+pl79mQn+uAD9J3T+ygD9O1n8pRL9twuaEkMNAAAAc3RSTlMBAF3G///////////GW9j//9nY/1r///////////7//////8b/////////////////////////////////////////////////////////////////////////////////xf///1v////////Y/9j/2VzGSus+GgAAAeNJREFUeAFFjEWiU0EQRc/tqu74V9wZ4TBiB6wG3wpzVoQ7zHCXeELypHH+KVchJAESaEs0IUv0Zv+7fwLgSAOk9ZFghcnfDw4AAg18cyhWCKNVob9NCZjQLWVrEGhJbJGDoCBpMwCrJTETAKBWgdeRGb4dmJW56PdI/KU1K4X15N+AFsW0+3/WVm7Pa0Pmu4Fh7HcbRIjMIhr3FItUGAH4SNZKjK32YjKpK3Iv0yUY0b8g0Vs0oK+8wbeyMBAQwVeo44R1z7XWq6rqpn5jiTmAeQO3iceg9zkYzKvc71iEmMFbqCJJ4tDcKFrLjX5D/MEdq8GpIUUgd/tgGboTgiUDPDZ44SXNpr0gWRcAgqEmEPJRNVPOxYaOth0oAHdCxWoOzslH+RCvlafYMgFUHvAIHoCjz16io80BrH/j0AAcJ9KWKkhn5sRyGjsDtr/sqyrsWNO1cW9/cDNLZgHLSzVvn+wMq9qbKKwy7TiIaKTW56pzW6Oa+N1OKEQdvvl2RyOE4DEOZurd1cHNeab27tyjOPfhFlucXP04ovF97B6jTOzdJwFLaNAff7N6c8incH1VpiSR67q2VgjzUU7JgbMTiQtFKmgAsCAuczlflmVZn7iGBFc1awB/p4tqUS3LDb8OPwBrSrZIO/KHZwAAAABJRU5ErkJggg==" alt="Instagram Logo">
+            </a>
+        </div>
+
         <div class="snowflakes" aria-hidden="true">
             <div class="snowflake">❅</div>
             <div class="snowflake">❆</div>
@@ -501,9 +550,6 @@
         </div>
     </header>
 
-    <div class="audio-player-container">
-        <div class="elfsight-app-20be1e2f-983f-4a0a-960c-b748f98e0d4b" data-elfsight-app-lazy></div>
-    </div>
     <div class="container">
         (KI Textbeispiel:)
         <p class="section-description">
@@ -585,27 +631,15 @@
             </li>
         </ul>
 
-        ---
+        --- 
 
         <h2>(KI Textbeispiel:) Ihre Momente – Teilen Sie Ihre Fotos!</h2>
         <p class="section-description">
-            Sie haben ein tolles Foto oder Video vom Weihnachtskonvoi gemacht? Dann teilen Sie es mit uns und der ganzen Gemeinde!
+            Sie haben ein tolles Foto oder Video? Nutzen Sie den sichtbaren Hashtag oben im Header 
+            <strong>#WeihnachtskonvoiEfringenKirchen</strong> oder taggen Sie uns auf Instagram. Alle Hinweise und Links finden Sie direkt oberhalb der Seite.
         </p>
+        
         <p class="section-description">
-            Verwenden Sie dafür den Hashtag:
-        </p>
-        <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
-        <p class="section-description">
-            Folgen Sie gerne uns auf Instagram für weitere Impressionen und Neuigkeiten:
-        </p>
-        <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank">
-            <img src="https://img.freepik.com/vektoren-premium/instagram-vektor-logo-symbol-social-media-logotyp_901408-392.jpg" alt="Instagram Logo">
-        </a>
-        <p class="section-description">
-            Wir freuen uns darauf, Ihre festlichen Momente zu sehen!
-            
-        </p>
-<p class="section-description">
             Hinweis: Diese Website wird Privat für den 
             Weihnachtskonvoi Efringen-Kirchen betrieben und ist nicht offiziell mit der Feuerwehr Efringen-Kirchen verbunden.
         </p>
@@ -668,11 +702,10 @@
             document.body.appendChild(s);
         }
 
-        // Cookie-Banner-Logik
+        // Cookie-Banner-Logik (ohne Elfsight-spezifisches Laden)
         (function () {
             const consent = localStorage.getItem('cookieConsent');
             if (consent !== 'true') {
-                // Banner erstellen
                 const banner = document.createElement('div');
                 banner.className = 'cookie-banner';
                 banner.innerHTML = `
@@ -687,18 +720,12 @@
                 document.getElementById('cookie-accept').addEventListener('click', function () {
                     localStorage.setItem('cookieConsent', 'true');
                     banner.remove();
-                    // Event auslösen, damit andere Skripte darauf reagieren können
                     window.dispatchEvent(new Event('cookieConsentAccepted'));
-                    // sofort Elfsight laden
-                    loadElfsight();
                 });
                 document.getElementById('cookie-decline').addEventListener('click', function () {
                     localStorage.setItem('cookieConsent', 'false');
                     banner.remove();
                 });
-            } else if (consent === 'true') {
-                // Bereits zugestimmt: Elfsight laden
-                loadElfsight();
             }
         })();
     </script>
@@ -727,7 +754,6 @@
         <h4>3. Externe Inhalte & Dienste</h4>
         <ul>
             <li><strong>Glympse (eingebettete Karte / Live-Tracking):</strong> Das iframe lädt Inhalte von glympse.com. Beim Laden werden Verbindungsdaten an den Drittanbieter übertragen. Bitte beachten Sie die Datenschutzhinweise von Glympse.</li>
-            <li><strong>Elfsight Widget (Audio-Player):</strong> Das Widget wird nur geladen, wenn Sie im Cookie-Banner zustimmen. Elfsight kann personenbezogene Daten verarbeiten (z. B. für Widget-Funktionalitäten). Details regelt die Datenschutzerklärung von Elfsight.</li>
             <li><strong>Google Fonts / Schriftarten:</strong> Webfonts werden von fonts.googleapis.com bzw. fonts.gstatic.com nachgeladen. Dabei werden Verbindungsdaten an Google übermittelt.</li>
             <li><strong>Externe Bilder:</strong> Einige Bilder/Icons werden von externen Quellen geladen (z. B. Wikimedia, Freepik). Beim Laden werden Daten an die jeweiligen Server übertragen.</li>
         </ul>
