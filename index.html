@@ -139,6 +139,41 @@
             margin-left: auto;
             margin-right: auto;
         }
+        
+        /* NEUE STYLES FÜR IMPRESSUM */
+        #impressum {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--christmas-green);
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        #impressum-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5em;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        #impressum p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        #impressum a {
+            color: var(--christmas-green);
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        #impressum a:hover {
+            color: var(--christmas-gold-dark);
+        }
+
 
         /* Responsive Anpassungen */
         @media (max-width: 600px) {
@@ -193,6 +228,18 @@
             Markieren Sie den 6. Dezember im Kalender!
         </p>
         
+        <!-- IMPRESSUM & DATENSCHUTZ (steht unten auf der Seite) -->
+        <section id="impressum" aria-labelledby="impressum-title">
+            <h3 id="impressum-title">Impressum</h3>
+            <p>Betreiber der Website (privat betrieben):</p>
+            <p>Finn Wasmer<br>
+            Blauenblick 4/2<br>
+            79588 Efringen-Kirchen</p>
+            <p>Kontakt: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a></p>
+            <p>Hinweis: Diese Website ist eine private Informationsseite zum Weihnachtskonvoi und nicht offiziell mit der Freiwilligen Feuerwehr Efringen-Kirchen verbunden.</p>
+        </section>
+
+
         <div class="mt-8 pt-4 border-t border-gray-200 text-sm text-gray-500">
             <p>&copy; 2025 Weihnachtskonvoi Efringen-Kirchen – Privat betrieben</p>
         </div>
