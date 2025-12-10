@@ -4,16 +4,44 @@
     <meta charset="UTF-8">
     <title>Weihnachtskonvoi Efringen-Kirchen - Live Tracking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts werden NUR nach Zustimmung geladen -->
-    <script>
-    if (localStorage.getItem("cookie_prefs") === "accepted") {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap";
-      document.head.appendChild(link);
-    }
-    </script>
+    <!-- Google Fonts entfernt: Schriften werden lokal geladen -->
     <style>
+        /* --- Lokale Fonts: keine Verbindung zu Google --- */
+        /* Bitte die .woff2-Dateien in den Ordner "fonts/" neben dieser index.html legen:
+           - fonts/Oswald-Regular.woff2
+           - fonts/Oswald-Bold.woff2
+           - fonts/Roboto-Regular.woff2
+           - fonts/Roboto-Bold.woff2
+        */
+        @font-face {
+            font-family: 'OswaldLocal';
+            src: url('fonts/Oswald-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'OswaldLocal';
+            src: url('fonts/Oswald-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'RobotoLocal';
+            src: url('fonts/Roboto-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'RobotoLocal';
+            src: url('fonts/Roboto-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* Fallbacks: falls lokale Dateien fehlen, werden System-Schriften verwendet */
         :root {
             --primary-red: #C62828;
             --dark-red: #B71C1C;
@@ -27,7 +55,7 @@
 
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'RobotoLocal', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--light-grey);
             color: var(--text-color);
             display: flex;
@@ -65,7 +93,7 @@
         }
 
         header h1 {
-            font-family: 'Oswald', sans-serif;
+            font-family: 'OswaldLocal', system-ui, -apple-system, "Segoe UI", "Oswald", sans-serif;
             font-size: 4em;
             margin: 0;
             letter-spacing: 3px;
@@ -223,7 +251,14 @@
             font-style: italic;
         }
 
-        /* iframe entfernt — Glympse wird als Hinweis-Platzhalter angezeigt */
+        iframe {
+            width: 100%;
+            height: 550px;
+            border: 6px solid var(--christmas-green);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            margin-bottom: 35px;
+        }
 
         a.button {
             display: inline-block;
@@ -597,70 +632,49 @@
             font-weight: 700;
         }
 
-        /* Glympse-Placeholder */
-        .glympse-placeholder {
-            width: 100%;
-            min-height: 420px;
-            display: flex;
+        /* LINKTREE OVERLAY */
+        .linktree-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
             align-items: center;
             justify-content: center;
-            border: 6px solid var(--christmas-green);
-            border-radius: 12px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.95));
-            box-shadow: 0 0 25px rgba(0,0,0,0.15);
-            margin-bottom: 35px;
-            text-align: center;
-            padding: 24px;
+            background: rgba(0,0,0,0.6);
+            z-index: 11000;
+            padding: 20px;
         }
-        .glympse-placeholder p { margin: 0 0 12px 0; font-size: 1.05em; color: var(--dark-grey); }
-        .glympse-placeholder .note-cta { margin-top: 6px; }
+        .linktree-overlay.active { display: flex; }
+        .linktree-panel {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            text-align: center;
+        }
+        .linktree-panel h3 { margin-top: 0; color: var(--primary-red); font-family: 'Oswald', sans-serif; }
+        .linktree-item {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 14px;
+            background: linear-gradient(90deg, var(--christmas-gold), var(--christmas-gold-dark));
+            color: #111;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        .linktree-close {
+            background: transparent;
+            border: none;
+            color: #444;
+            font-size: 1.1em;
+            margin-top: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <!-- COOKIE-BANNER (direkt nach <body>) -->
-    <div id="cookie-banner" style="position:fixed; bottom:20px; left:20px; right:20px; background:#fff; padding:15px; box-shadow:0 5px 20px rgba(0,0,0,.2); border-radius:10px; z-index:99999; display:none;">
-      <p style="margin:0 0 10px 0;">
-        Diese Website nutzt externe Dienste (z. B. Google Fonts, Instagram, Google Drive).
-        Mit Klick auf „Akzeptieren“ stimmen Sie der Nutzung zu.
-        <a href="#datenschutz">Mehr Infos</a>
-      </p>
-      <div style="display:flex; gap:8px; justify-content:flex-end;">
-        <button onclick="acceptCookies()" style="background:#2e7d32;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">Akzeptieren</button>
-        <button onclick="declineCookies()" style="background:transparent;color:#444;border:1px solid #ddd;padding:8px 12px;border-radius:6px;cursor:pointer;">Ablehnen</button>
-      </div>
-    </div>
-    <script>
-    function acceptCookies() {
-      localStorage.setItem("cookie_prefs", "accepted");
-      location.reload();
-    }
-    function declineCookies() {
-      localStorage.setItem("cookie_prefs", "declined");
-      document.getElementById("cookie-banner").style.display = "none";
-    }
-    // Funktion, um das Cookie-Banner über den Footer-Link wieder anzuzeigen
-    function showCookieSettings() {
-        document.getElementById("cookie-banner").style.display = "block";
-    }
-    if (!localStorage.getItem("cookie_prefs")) {
-      document.getElementById("cookie-banner").style.display = "block";
-    }
-    // Elfsight nur laden, wenn Zustimmung erteilt
-    function loadElfsight() {
-      if (document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')) return;
-      var s = document.createElement('script');
-      s.src = 'https://elfsightcdn.com/platform.js';
-      s.async = true;
-      document.body.appendChild(s);
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      if (localStorage.getItem('cookie_prefs') === 'accepted') {
-        // Fonts werden durch das Head-Skript nachgeladen beim Reload — hier Elfsight laden
-        loadElfsight();
-      }
-    });
-    </script>
-
     <header>
         <h1>Weihnachtskonvoi <span>Efringen-Kirchen</span></h1>
         <p>Ein magisches Erlebnis für die ganze Familie – Live dabei!</p>
@@ -673,8 +687,8 @@
         <div class="share-banner" role="region" aria-label="Fotos teilen">
             <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
             <span class="share-text">Teile deine Fotos auf Instagram und markiere uns</span>
-            <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-                <img src="https://raw.githubusercontent.com/Finnhtml/Weihnachtskonvoi-Bilder/refs/heads/main/Insta%20Logo.avif" alt="Instagram Logo">
+            <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" aria-label="Instagram öffnen">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABWVBMVEVyHVFHcEx0Fvp8Fv1yFP1/FfyLCOyfBOmtAeS7AuDHAd3UANjZAs7rD6xyFvzjANTqAMHoA7l2F/yPFfx8GPmfD/zFF/XVWujoZuLyZt3pRt/yGdHyA8j1AKTViPj/9Pr////8g9f9A7r3DZz5vO794Pf+ruj9B6uzFPv7JLv+AJr+BI/+YMP/1vD+AIThG+n9GZn/vd3/YZz+AXP+GoT/r8r+AmT/b5z+HHH+I3f+G2P/ur7+FFD+Klb+fYv/wcr+LUf+LWX+AFn+Nzr+Ohz+RT7+inP+Si7/ztD+TxL/zbv+Wy//9fH+WgL+c1X+ZyX+PUv+Bzv+VXD+cxr/6eL+aQT+eAX+nDj+gwD+gxH+fSL+rYn+jwD+iwL+XhX/3rn/1bH9ZR/+lwP+nwH+xHH8ZC3+qAH+sAD+wAP+x1P+zGb+pl79mQn+uAD9J3T+ygD9O1n8pRL9twuaEkMNAAAAc3RSTlMBAF3G///////////GW9j//9nY/1r///////////7//////8b/////////////////////////////////////////////////////////////////////////////////xf///1v////////Y/9j/2VzGSus+GgAAAeNJREFUeAFFjEWiU0EQRc/tqu74V9wZ4TBiB6wG3wpzVoQ7zHCXeELypHH+KVchJAESaEs0IUv0Zv+7fwLgSAOk9ZFghcnfDw4AAg18cyhWCKNVob9NCZjQLWVrEGhJbJGDoCBpMwCrJTETAKBWgdeRGb4dmJW56PdI/KU1K4X15N+AFsW0+3/WVm7Pa0Pmu4Fh7HcbRIjMIhr3FItUGAH4SNZKjK32YjKpK3Iv0yUY0b8g0Vs0oK+8wbeyMBAQwVeo44R1z7XWq6rqpn5jiTmAeQO3iceg9zkYzKvc71iEmMFbqCJJ4tDcKFrLjX5D/MEdq8GpIUUgd/tgGboTgiUDPDZ44SXNpr0gWRcAgqEmEPJRNVPOxYaOth0oAHdCxWoOzslH+RCvlafYMgFUHvAIHoCjz16io80BrH/j0AAcJ9KWKkhn5sRyGjsDtr/sqyrsWNO1cW9/cDNLZgHLSzVvn+wMq9qbKKwy7TiIaKTW56pzW6Oa+N1OKEQdvvl2RyOE4DEOZurd1cHNeab27tyjOPfhFlucXP04ovF97B6jTOzdJwFLaNAff7N6c8incH1VpiSR67q2VgjzUU7JgbMTiQtFKmgAsCAuczlflmVZn7iGBFc1awB/p4tqUS3LDb8OPwBrSrZIO/KHZwAAAABJRU5ErkJggg==" alt="Instagram Logo">
             </a>
         </div>
 
@@ -693,14 +707,17 @@
             <div class="snowflake">❄</div>
         </div>
     </header>
-
+    <!-- Linktree-Button im Header -->
+    <a href="#linktree" class="linktree-button" style="position:absolute;right:18px;top:18px;background:var(--christmas-gold);color:#111;padding:8px 12px;border-radius:999px;font-weight:700;text-decoration:none;z-index:5;">Linktree</a>
+    
     <div class="container">
+        <!-- Hinweis: Linktree kann auch direkt per URL-Hash geöffnet werden: #linktree -->
         <p class="section-description">
-Herzlich willkommen zum offiziellen Live-Tracking des Weihnachtskonvois Efringen-Kirchen! Freuen sie sich darauf, wenn verschiedene Blaulicht- und Hilfsorganisationen mit ihren Großen und kleinen Fahrzeuge durch die Straßen ziehen und Weihnachtsstimmung verbreiten. Ein besonderer Dank gilt allen ehrenamtlichen Helfern, die dieses magische Ereignis ermöglichen!        </p>
+Herzlich willkommen zum offiziellen Live-Tracking des Weihnachtskonvois Efringen-Kirchen! Jedes Jahr aufs Neue verwandeln wir unsere Gemeinde in ein funkelndes Winterwunderland. Begleiten Sie uns auf unserer festlichen Tour, wenn unsere beleuchteten Fahrzeuge durch die Straßen ziehen und Weihnachtsstimmung verbreiten. Ein besonderer Dank gilt allen ehrenamtlichen Helfern, die dieses magische Ereignis ermöglichen!        </p>
 
         <h2>Unser Konvoi – Eine Tradition voller Herz</h2>
         <p class="section-description">
-Der Weihnachtskonvoi ist mehr als nur eine Lichterfahrt. Er ist ein Zeichen der Gemeinschaft, der Freude und der Solidarität in unserer schönen Gemeinde Efringen-Kirchen.       </p>
+Der Weihnachtskonvoi ist mehr als nur eine Lichterfahrt. Er ist ein Zeichen der Gemeinschaft, der Freude und der Solidarität in unserer schönen Gemeinde Efringen-Kirchen. Werden Sie Teil dieser wundervollen Tradition!        </p>
 
         <h2> Impressionen vergangener Jahre</h2>
         <div class="image-gallery">
@@ -772,19 +789,12 @@ Hier finden Sie den voraussichtlichen Streckenverlauf und die geschätzten Ankun
         <h2> Aktueller Standort des Konvois</h2>
         <p class="section-description">
 Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten sehen können.        </p>
-        <div class="glympse-placeholder" role="region" aria-label="Live-Tracking Hinweis">
-            <div>
-                <p><strong>An dieser Stelle wird später das Live-Tracking angezeigt.</strong></p>
-                <p></p>
-                <div class="note-cta">
-                
-                </div>
-            </div>
-        </div>
+        <iframe src="https://glympse.com/BZVQ-1YYb" allowfullscreen loading="lazy"></iframe>
         
-    
-            
-       
+        <p>
+            Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
+        </p>
+        <a class="button" href="https://glympse.com/BZVQ-1YYb" target="_blank">Konvoi in voller Ansicht öffnen</a>
 
         
 
@@ -812,14 +822,13 @@ Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Ka
 
         <h2>Ihre Momente – Teilen Sie Ihre Fotos und Videos!</h2>
         <p class="section-description">
-Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:             
-            <strong>#WeihnachtskonvoiEfringenKirchen</strong> und Makieren Sie uns auf Instagram. Alle Hinweise und Links finden Sie ganz oben auf der Seite.
-
-            Alternativ können Sie Ihre Aufnahmen auch über Dropola hochladen:
-            <a class="button" href="https://dropola.com/event/F3VPBR/upload" target="_blank" rel="noopener">Zum Dropola-Upload</a>
+Sie haben ein tolles Foto oder Video? Nutzen Sie den sichtbaren Hashtag:             
+            <strong>#WeihnachtskonvoiEfringenKirchen</strong> oder taggen Sie uns auf Instagram. Alle Hinweise und Links finden Sie direkt oberhalb der Seite.
         </p>
         
-        
+        <p class="section-description">
+            Hinweis: Diese Website wird Privat für den 
+            Weihnachtskonvoi Efringen-Kirchen betrieben und ist nicht offiziell mit der Feuerwehr Efringen-Kirchen verbunden.
         </p>
     </div>
 
@@ -869,81 +878,119 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
         }, 1000);
     </script>
 
-    <!-- Hinweis: Altes dynamisches Cookie-Skript entfernt. Neue Cookie-Banner/Logik direkt nach <body>. -->
+    <!-- Elfsight wird nun nur geladen, wenn Cookie-Zustimmung erteilt wurde (siehe Datenschutz / Cookie-Banner) -->
+    <script>
+        // Lädt Elfsight-Platform (Widget) dynamisch
+        function loadElfsight() {
+            if (document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')) return;
+            var s = document.createElement('script');
+            s.src = 'https://elfsightcdn.com/platform.js';
+            s.async = true;
+            document.body.appendChild(s);
+        }
+
+        // Cookie-Banner-Logik (ohne Elfsight-spezifisches Laden)
+        (function () {
+            const consent = localStorage.getItem('cookieConsent');
+            if (consent !== 'true') {
+                const banner = document.createElement('div');
+                banner.className = 'cookie-banner';
+                banner.innerHTML = `
+                    <p>Wir verwenden auf dieser Website externe Dienste (z. B. Widgets, Karten, Schriften), die Daten an Dritte übertragen können. Mit "Akzeptieren" stimmen Sie der Verwendung zu. Mehr Informationen finden Sie in unserer <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+                    <div>
+                        <button class="btn secondary" id="cookie-decline">Ablehnen</button>
+                        <button class="btn" id="cookie-accept">Akzeptieren</button>
+                    </div>
+                `;
+                document.body.appendChild(banner);
+
+                document.getElementById('cookie-accept').addEventListener('click', function () {
+                    localStorage.setItem('cookieConsent', 'true');
+                    banner.remove();
+                    window.dispatchEvent(new Event('cookieConsentAccepted'));
+                });
+                document.getElementById('cookie-decline').addEventListener('click', function () {
+                    localStorage.setItem('cookieConsent', 'false');
+                    banner.remove();
+                });
+            }
+        })();
+    </script>
 
     <!-- IMPRESSUM & DATENSCHUTZ (steht unten auf der Seite) -->
     <section id="impressum" aria-labelledby="impressum-title">
         <h3 id="impressum-title">Impressum</h3>
-        <p>
-        Betreiber (privat):<br>
-        Finn Wasmer<br>
-        Blauenblick 4/2<br>
-        79588 Efringen-Kirchen<br>
-        Deutschland
-        </p>
-        <p>
-        E-Mail: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a>
-        </p>
-        <p>
-        Diese Website ist eine private Informationsseite und steht in keiner offiziellen Verbindung zur Feuerwehr.
-        </p>
+        <p>Betreiber der Website (privat betrieben):</p>
+        <p>Finn Wasmer<br>
+       Blauenblick 4/2<br>
+        79588 Efringen-Kirchen</p>
+        <p>Kontakt: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a></p>
+        <p>Hinweis: Diese Website ist eine private Informationsseite zum Weihnachtskonvoi und nicht offiziell mit der Freiwilligen Feuerwehr Efringen-Kirchen verbunden.</p>
     </section>
 
     <section id="datenschutz" aria-labelledby="datenschutz-title">
-        <h3 id="datenschutz-title">Datenschutzerklärung</h3>
+  <h3 id="datenschutz-title">Datenschutzerklärung</h3>
 
-        <h4>1. Verantwortlicher</h4>
-        <p>
-        Finn Wasmer<br>
-        Blauenblick 4/2<br>
-        79588 Efringen-Kirchen<br>
-        E-Mail: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a>
-        </p>
+  <h4>1. Verantwortlicher</h4>
+  <p>
+    Finn Wasmer<br>
+    Blauenblick 4/2<br>
+    79588 Efringen-Kirchen<br>
+    E-Mail: <a href="mailto:finnwebsite@outlook.de">finnwebsite@outlook.de</a>
+  </p>
 
-        <h4>2. Hosting und Server-Logfiles</h4>
-        <p>
-        Beim Besuch unserer Website erfasst das Hosting-System, auf dem diese Website gespeichert ist, automatisiert Informationen in sogenannten Server-Logfiles. Dazu gehören Browsertyp und Browserversion, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners, Uhrzeit der Serveranfrage und die <strong>IP-Adresse</strong> des Nutzers. Die Speicherung dieser Daten ist technisch erforderlich, um die Funktionsfähigkeit der Website zu gewährleisten und die Sicherheit der informationstechnischen Systeme zu sichern (Art. 6 Abs. 1 lit. f DSGVO). Die IP-Adressen werden nach kurzer Zeit anonymisiert oder gelöscht, sofern keine gesetzliche Aufbewahrungspflicht besteht.
-        </p>
+  <h4>2. Hosting und Server-Logfiles</h4>
+  <p>
+    Beim Besuch unserer Website erfasst das Hosting-System, auf dem diese Website gespeichert ist, automatisiert Informationen in sogenannten Server-Logfiles. Dazu gehören Browsertyp und Browserversion, verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners, Uhrzeit der Serveranfrage und die IP‑Adresse des Nutzers. Die Speicherung dieser Daten ist technisch erforderlich, um die Funktionsfähigkeit der Website zu gewährleisten und die Sicherheit der informationstechnischen Systeme zu sichern (Art. 6 Abs. 1 lit. f DSGVO). Die IP‑Adressen werden nach kurzer Zeit anonymisiert oder gelöscht, sofern keine gesetzliche Aufbewahrungspflicht besteht.
+  </p>
 
-        <h4>3. Externe Dienste, die eine Einwilligung erfordern</h4>
-        <p>Wir binden externe Inhalte ein, die zur Anzeige von Social Media Feeds, Karten (Live-Tracking) und Dokumenten dienen. Bei der Aktivierung dieser Dienste werden Daten (insbesondere Ihre IP-Adresse) an die externen Anbieter übermittelt. Wir nutzen das von Ihnen gesetzte Cookie zur Steuerung dieser Einbindungen (Art. 6 Abs. 1 lit. a DSGVO, Ihre Einwilligung).</p>
+  <h4>3. Externe Dienste, die eine Einwilligung erfordern</h4>
+  <p>
+    Wir binden externe Inhalte ein, die zur Anzeige von Social Media Feeds, Karten (Live‑Tracking) und Dokumenten dienen. Bei der Aktivierung dieser Dienste werden Daten (insbesondere Ihre IP‑Adresse) an die externen Anbieter übermittelt. Wir nutzen das von Ihnen gesetzte Cookie zur Steuerung dieser Einbindungen (Art. 6 Abs. 1 lit. a DSGVO, Ihre Einwilligung).
+  </p>
 
-        <ul>
-            <li>
-                <h5>Google Fonts (Schriften)</h5>
-                <p>Die Schriften werden <strong>lokal</strong> von unserem Server geladen. Es erfolgt <strong>keine</strong> Datenübertragung an Google.</p>
-            </li>
-            <li>
-                <h5>Elfsight (Instagram-Feed)</h5>
-                <p>Zur Anzeige von Instagram-Inhalten nutzen wir den Dienst Elfsight. Nach Ihrer Zustimmung wird ein Skript von Elfsight geladen, das Daten an Elfsight und Instagram (Meta Platforms Ireland Limited) überträgt.</p>
-            </li>
-            <li>
-                <h5>Google Drive (Flyer-Download)</h5>
-                <p>Der Link zum Flyer leitet auf Google Drive weiter. Google (Google Ireland Limited) erhält dabei Ihre IP-Adresse und Informationen zur Nutzung des Links.</p>
-            </li>
-            <li>
-                <h5>Live-Tracking (Glympse / ähnlicher Dienst)</h5>
-                <p>Für das Live-Tracking binden wir temporär einen Kartendienst (z.B. Glympse oder Google Maps) ein. Bei Aufruf der Karte werden Daten an den jeweiligen Dienstanbieter übertragen. Dies erfolgt erst nach Ihrer Zustimmung (Art. 6 Abs. 1 lit. a DSGVO), oder der Dienst wird über einen Button nachgeladen.</p>
-            </li>
-            <li>
-                <h5>Dropola (Bilder-Upload)</h5>
-                <p>Der Link zum Bilder-Upload leitet auf den externen Dienst Dropola weiter. Dropola ist ein eigenständiger Verantwortlicher und es gelten deren Datenschutzbestimmungen.</p>
-            </li>
-        </ul>
+  <ul>
+    <li>
+      <strong>Google Fonts (Schriften)</strong><br>
+      Die Schriften werden lokal von unserem Server geladen. Es erfolgt keine Datenübertragung an Google.
+    </li>
+    <li>
+      <strong>Elfsight (Instagram‑Feed)</strong><br>
+      Zur Anzeige von Instagram‑Inhalten nutzen wir den Dienst Elfsight. Nach Ihrer Zustimmung wird ein Skript von Elfsight geladen, das Daten an Elfsight und Instagram (Meta Platforms Ireland Limited) überträgt.
+    </li>
+    <li>
+      <strong>Google Drive (Flyer‑Download)</strong><br>
+      Der Link zum Flyer leitet auf Google Drive weiter. Google (Google Ireland Limited) erhält dabei Ihre IP‑Adresse und Informationen zur Nutzung des Links.
+    </li>
+    <li>
+      <strong>Live‑Tracking (Glympse / ähnlicher Dienst)</strong><br>
+      Für das Live‑Tracking binden wir temporär einen Kartendienst (z. B. Glympse oder Google Maps) ein. Bei Aufruf der Karte werden Daten an den jeweiligen Dienstanbieter übertragen. Dies erfolgt erst nach Ihrer Zustimmung (Art. 6 Abs. 1 lit. a DSGVO), oder der Dienst wird über einen Button nachgeladen.
+    </li>
+    <li>
+      <strong>Dropola (Bilder‑Upload)</strong><br>
+      Der Link zum Bilder‑Upload leitet auf den externen Dienst Dropola weiter. Dropola ist ein eigenständiger Verantwortlicher und es gelten deren Datenschutzbestimmungen.
+    </li>
+  </ul>
 
-        <h4>4. Cookies</h4>
-        <p>Wir verwenden ein technisch notwendiges Cookie (lokale Speicherung, "cookie_prefs"), um Ihre Auswahl bezüglich der Zustimmung zu externen Diensten zu speichern. Dieses Cookie speichert <strong>keine</strong> personenbezogenen Daten und dient ausschließlich der Steuerung der Drittanbieter-Inhalte (Art. 6 Abs. 1 lit. f DSGVO).</p>
-        
-        
-    </section>
+  <h4>4. Cookies</h4>
+  <p>
+    Wir verwenden ein technisch notwendiges Cookie (lokale Speicherung, "cookie_prefs"), um Ihre Auswahl bezüglich der Zustimmung zu externen Diensten zu speichern. Dieses Cookie speichert keine personenbezogenen Daten und dient ausschließlich der Steuerung der Drittanbieter‑Inhalte (Art. 6 Abs. 1 lit. f DSGVO).
+  </p>
+
+  <h4>5. Ihre Betroffenenrechte</h4>
+  <p>
+    Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung (Art. 15 DSGVO). Des Weiteren haben Sie das Recht auf Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) sowie auf Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Hierfür können Sie sich jederzeit unter der oben angegebenen E‑Mail‑Adresse an uns wenden.
+  </p>
+</section>
 
     <footer>
         <div class="footer-inner">
-            <span class="footer-note">© 2025 Weihnachtskonvoi Efringen-Kirchen | Private Initiative</span>
             <div class="footer-links">
                 <a href="#impressum">Impressum</a>
-                <a href="#datenschutz">Datenschutzerklärung</a>
-                <a href="#" onclick="showCookieSettings(); return false;">Cookie-Einstellungen</a>
+                <a href="#datenschutz">Datenschutz</a>
+            </div>
+            <div class="footer-note">
+                &copy; 2025 Weihnachtskonvoi Efringen‑Kirchen — Privat betrieben
             </div>
         </div>
     </footer>
@@ -958,6 +1005,44 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
             </div>
         </div>
     </div>
+
+    <!-- LINKTREE OVERLAY -->
+    <div id="linktree-overlay" class="linktree-overlay" aria-hidden="true" role="dialog" aria-label="Linktree">
+        <div class="linktree-panel" role="document">
+            <h3>Weihnachtskonvoi Links</h3>
+            <a class="linktree-item" href="https://drive.google.com/drive/folders/12zAw-2B45yGI-J9G37iQAkZ4jLxTGpQP" target="_blank" rel="noopener">Flyer / Downloads</a>
+            <a class="linktree-item" href="https://glympse.com/BZVQ-1YYb" target="_blank" rel="noopener">Live-Tracking (Glympse)</a>
+            <a class="linktree-item" href="https://www.instagram.com/ffw_ek" target="_blank" rel="noopener">Instagram</a>
+            <a class="linktree-item" href="mailto:finnwebsite@outlook.de" target="_blank" rel="noopener">Kontakt per E‑Mail</a>
+            <a class="linktree-item" href="#datenschutz">Datenschutz & Impressum</a>
+            <button class="linktree-close" id="linktree-close" aria-label="Schließen">Schließen</button>
+        </div>
+    </div>
+    
+    <script>
+    // Linktree - öffnet/schließt Overlay basierend auf URL-Hash (#linktree)
+    (function() {
+        const overlay = document.getElementById('linktree-overlay');
+        function openLinktree() {
+            overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            if (location.hash !== '#linktree') location.hash = 'linktree';
+        }
+        function closeLinktree() {
+            overlay.classList.remove('active');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            // Entferne Hash ohne Reload
+            history.replaceState(null, '', location.pathname + location.search);
+        }
+        document.getElementById('linktree-close').addEventListener('click', closeLinktree);
+        overlay.addEventListener('click', function(e){ if (e.target === overlay) closeLinktree(); });
+        window.addEventListener('hashchange', function(){ if (location.hash === '#linktree') openLinktree(); else closeLinktree(); });
+        // Öffnen falls Seite mit #linktree aufgerufen wurde
+        if (location.hash === '#linktree') openLinktree();
+    })();
+    </script>
 
     <script>
     // Lightbox-Script (neu)
@@ -1008,6 +1093,56 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
                 if (e.key === 'Escape') {
                     const overlay = document.getElementById('lightbox');
                     if (overlay.classList.contains('active')) closeLightbox();
+                }
+            });
+        });
+    })();
+    </script>
+
+    <!-- LINKTREE (neu) -->
+    <div id="linktree" class="linktree-overlay" aria-hidden="true" role="dialog" aria-label="Links">
+        <div class="linktree-panel">
+            <h3>Folge uns auf Social Media</h3>
+            <a class="linktree-item" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" rel="noopener">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABWVBMVEVyHVFHcEx0Fvp8Fv1yFP1/FfyLCOyfBOmtAeS7AuDHAd3UANjZAs7rD6xyFvzjANTqAMHoA7l2F/yPFfx8GPmfD/zFF/XVWujoZuLyZt3pRt/yGdHyA8j1AKTViPj/9Pr////8g9f9A7r3DZz5vO794Pf+ruj9B6uzFPv7JLv+AJr+BI/+YMP/1vD+AIThG+n9GZn/vd3/YZz+AXP+GoT/r8r+AmT/b5z+HHH+I3f+G2P/ur7+FFD+Klb+fYv/wcr+LUf+LWX+AFn+Nzr+Ohz+RT7+inP+Si7/ztD+TxL/zbv+Wy//9fH+WgL+c1X+ZyX+PUv+Bzv+VXD+cxr/6eL+aQT+eAX+nDj+gwD+gxH+fSL+rYn+jwD+iwL+XhX/3rn/1bH9ZR/+lwP+nwH+xHH8ZC3+qAH+sAD+wAP+x1P+zGb+pl79mQn+uAD9J3T+ygD9O1n8pRL9twuaEkMNAAAAc3RSTlMBAF3G///////////GW9j//9nY/1r///////////7//////8b/////////////////////////////////////////////////////////////////////////////////xf///1v////////Y/9j/2VzGSus+GgAAAeNJREFUeAFFjEWiU0EQRc/tqu74V9wZ4TBiB6wG3wpzVoQ7zHCXeELypHH+KVchJAESaEs0IUv0Zv+7fwLgSAOk9ZFghcnfDw4AAg18cyhWCKNVob9NCZjQLWVrEGhJbJGDoCBpMwCrJTETAKBWgdeRGb4dmJW56PdI/KU1K4X15N+AFsW0+3/WVm7Pa0Pmu4Fh7HcbRIjMIhr3FItUGAH4SNZKjK32YjKpK3Iv0yUY0b8g0Vs0oK+8wbeyMBAQwVeo44R1z7XWq6rqpn5jiTmAeQO3iceg9zkYzKvc71iEmMFbqCJJ4tDcKFrLjX5D/MEdq8GpIUUgd/tgGboTgiUDPDZ44SXNpr0gWRcAgqEmEPJRNVPOxYaOth0oAHdCxWoOzslH+RCvlafYMgFUHvAIHoCjz16io80BrH/j0AAcJ9KWKkhn5sRyGjsDtr/sqyrsWNO1cW9/cDNLZgHLSzVvn+wMq9qbKKwy7TiIaKTW56pzW6Oa+N1OKEQdvvl2RyOE4DEOZurd1cHNeab27tyjOPfhFlucXP04ovF97B6jTOzdJwFLaNAff7N6c8incH1VpiSR67q2VgjzUU7JgbMTiQtFKmgAsCAuczlflmVZn7iGBFc1awB/p4tqUS3LDb8OPwBrSrZIO/KHZwAAAABJRU5ErkJggg==" alt="Instagram Logo">
+                Instagram
+            </a>
+            <button class="linktree-close" aria-label="Schließen">✖</button>
+        </div>
+    </div>
+    <script>
+    // LINKTREE Script (neu)
+    (function() {
+        function openLinktree() {
+            const overlay = document.getElementById('linktree');
+            overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLinktree() {
+            const overlay = document.getElementById('linktree');
+            overlay.classList.remove('active');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Öffnen des Linktree-Overlays per JS (z.B. nach Cookie-Zustimmung)
+            window.addEventListener('openLinktree', openLinktree);
+
+            // Schließen per Klick auf Close-Button oder außerhalb des Panels
+            const overlay = document.getElementById('linktree');
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeLinktree();
+            });
+            const closeBtn = overlay.querySelector('.linktree-close');
+            closeBtn.addEventListener('click', closeLinktree);
+
+            // Keyboard: Esc schließt
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const overlay = document.getElementById('linktree');
+                    if (overlay.classList.contains('active')) closeLinktree();
                 }
             });
         });
