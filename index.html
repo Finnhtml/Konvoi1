@@ -4,33 +4,61 @@
     <meta charset="UTF-8">
     <title>Weihnachtskonvoi Efringen-Kirchen - Live Tracking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/1.jpeg?raw=true" type="image/jpeg">
-    <!-- Google Fonts werden NUR nach Zustimmung geladen -->
-    <script>
-    if (localStorage.getItem("cookie_prefs") === "accepted") {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap";
-      document.head.appendChild(link);
-    }
-    </script>
-
-    <!-- Google Analytics (GA4) - NUR nach Zustimmung laden -->
-    <script>
-    if (localStorage.getItem("cookie_prefs") === "accepted") {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-EVD9G3KQBG';
-      document.head.appendChild(script);
+        <!-- No external favicon to avoid external requests before consent -->
+        <!-- Google Fonts & Analytics are loaded only after cookie consent (see script below) -->
+        <script>
+        if (localStorage.getItem("cookie_prefs") === "accepted") {
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap";
+            document.head.appendChild(link);
       
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-EVD9G3KQBG');
-    }
-    </script>
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-EVD9G3KQBG';
+            document.head.appendChild(script);
+      
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} 
+            gtag('js', new Date());
+            gtag('config', 'G-EVD9G3KQBG');
+
+            // mark document so CSS relying on consent can be applied
+            try { document.documentElement.classList.add('consented'); } catch(e){}
+        }
+        </script>
 
     <style>
+        /* --- Lokale Fonts: keine Verbindung zu Google --- */
+        @font-face {
+            font-family: 'OswaldLocal';
+            src: url('fonts/Oswald-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'OswaldLocal';
+            src: url('fonts/Oswald-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'RobotoLocal';
+            src: url('fonts/Roboto-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'RobotoLocal';
+            src: url('fonts/Roboto-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        
         :root {
             --primary-red: #C62828;
             --dark-red: #B71C1C;
@@ -44,13 +72,12 @@
 
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'RobotoLocal', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--light-grey);
             color: var(--text-color);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-image: url('https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Background.jpeg?raw=true');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -70,6 +97,11 @@
             z-index: -1;
         }
 
+        /* Only attach large background images after consent */
+        html.consented body {
+            background-image: url('https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Background.jpeg?raw=true');
+        }
+
         header {
             background: linear-gradient(to right, var(--primary-red), var(--christmas-green));
             color: white;
@@ -82,7 +114,7 @@
         }
 
         header h1 {
-            font-family: 'Oswald', sans-serif;
+            font-family: 'OswaldLocal', system-ui, -apple-system, "Segoe UI", "Oswald", sans-serif;
             font-size: 4em;
             margin: 0;
             letter-spacing: 3px;
@@ -101,17 +133,14 @@
             font-weight: 300;
         }
 
-        /* NEUE STYLES FÜR DEN AUDIOPLAYER CONTAINER */
         .audio-player-container {
             width: 90%;
-            max-width: 500px; /* Begrenzt die Breite des Players */
-            margin: 20px auto 30px auto; /* Zentriert und gibt Abstand zum Header/Container */
-            z-index: 3; /* Sorgt dafür, dass der Player über dem Hintergrund ist */
+            max-width: 500px;
+            margin: 20px auto 30px auto;
+            z-index: 3;
             position: relative;
         }
-        /* ENDE NEUE STYLES */
 
-        /* Auffälliges Share-Banner (Hashtag + Instagram) */
         .share-banner {
             display: flex;
             align-items: center;
@@ -168,7 +197,7 @@
         }
 
         h2 {
-            font-family: 'Oswald', sans-serif;
+            font-family: 'OswaldLocal', system-ui, -apple-system, "Segoe UI", "Oswald", sans-serif;
             color: var(--primary-red);
             font-size: 2.5em;
             margin-bottom: 30px;
@@ -220,10 +249,6 @@
             transition: transform 0.3s ease;
             border: 3px solid var(--christmas-green);
         }
-        .image-gallery .wappen {
-            object-fit: contain;
-            background-color: #fff;
-        }
 
         .image-note {
             font-size: 0.9em;
@@ -231,7 +256,6 @@
             margin-bottom: 40px;
         }
 
-        /* Kleiner Hinweis unter der Galerie */
         .image-hint {
             font-size: 0.95em;
             color: #555;
@@ -240,7 +264,14 @@
             font-style: italic;
         }
 
-        /* iframe entfernt — Glympse wird als Hinweis-Platzhalter angezeigt */
+        iframe {
+            width: 100%;
+            height: 550px;
+            border: 6px solid var(--christmas-green);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            margin-bottom: 35px;
+        }
 
         a.button {
             display: inline-block;
@@ -274,9 +305,7 @@
             z-index: 1;
         }
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
+            to { transform: translateY(100vh); }
         }
         
         .faq-list {
@@ -293,32 +322,25 @@
             position: relative;
             color: var(--christmas-green);
             font-size: 1.4em;
-            padding-top: 14px;      /* Platz für die grüne Linie oberhalb */
-    padding-bottom: 22px;   /* Platz für die rote Wellenlinie darunter */
-    margin-bottom: 18px;
-    font-weight: 700;
-    line-height: 1.1;
-}
+            padding-top: 14px;
+            padding-bottom: 22px;
+            margin-bottom: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
 
-/* grüne Linie oberhalb (vollflächig) */
-.faq-item h3::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 6px;
-    background: var(--christmas-green);
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    transform: translateY(-100%); /* oberhalb der Überschrift */
-}
-
-/* rote gezackte/wellige Linie darunter (mit SVG als wiederholtes Hintergrundbild) */
-.faq-item h3::after {
-    /* Rote Wellenlinie entfernt */
-    display: none;
-}
+        .faq-item h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 6px;
+            background: var(--christmas-green);
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            transform: translateY(-100%);
+        }
 
         .hashtag {
             background-color: var(--christmas-gold);
@@ -353,7 +375,7 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         .countdown {
-            font-family: 'Oswald', sans-serif;
+            font-family: 'OswaldLocal', system-ui, -apple-system, "Segoe UI", "Oswald", sans-serif;
             font-size: 2em;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
@@ -369,111 +391,39 @@
             text-transform: uppercase;
         }
         
-        /* Anpassungen für Tablets (breite 768px oder weniger) */
         @media (max-width: 768px) {
-            header {
-                padding: 20px 0;
-            }
-            header h1 {
-                font-size: 2.8em;
-            }
-            header p {
-                font-size: 1em;
-            }
-            .audio-player-container { /* Anpassung für Tablets */
-                max-width: 85%;
-                margin-top: 15px;
-                margin-bottom: 25px;
-            }
-            .container {
-                width: 95%;
-                padding: 25px;
-                margin: 20px auto;
-            }
-            h2 {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-            h2::after, h2::before {
-                font-size: 0.5em;
-                right: -20px;
-                left: -20px;
-            }
-            .image-gallery {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .image-gallery img {
-                max-width: 90%;
-            }
-            iframe {
-                height: 450px;
-            }
-            a.button {
-                padding: 15px 30px;
-                font-size: 1.2em;
-            }
-            .faq-item h3 {
-                font-size: 1.2em;
-            }
-            .countdown {
-                font-size: 1.5em;
-            }
+            header { padding: 20px 0; }
+            header h1 { font-size: 2.8em; }
+            header p { font-size: 1em; }
+            .audio-player-container { max-width: 85%; margin-top: 15px; margin-bottom: 25px; }
+            .container { width: 95%; padding: 25px; margin: 20px auto; }
+            h2 { font-size: 2em; margin-bottom: 20px; }
+            h2::after, h2::before { font-size: 0.5em; right: -20px; left: -20px; }
+            .image-gallery { flex-direction: column; align-items: center; gap: 15px; }
+            .image-gallery img { max-width: 90%; }
+            iframe { height: 450px; }
+            a.button { padding: 15px 30px; font-size: 1.2em; }
+            .faq-item h3 { font-size: 1.2em; }
+            .countdown { font-size: 1.5em; }
         }
 
-        /* Anpassungen für Smartphones (breite 480px oder weniger) */
         @media (max-width: 480px) {
-            header {
-                padding: 15px 0;
-            }
-            header h1 {
-                font-size: 2em;
-                letter-spacing: 1px;
-            }
-            header p {
-                font-size: 0.85em;
-            }
-            .snowflakes {
-                display: block; /* Schneeflocken auf Handys wieder anzeigen */
-            }
-            .audio-player-container { /* Anpassung für Smartphones */
-                max-width: 95%;
-                margin-top: 10px;
-                margin-bottom: 20px;
-            }
-            h2 {
-                font-size: 1.7em;
-            }
-            h2::after, h2::before {
-                display: none;
-            }
-            .section-description {
-                font-size: 1em;
-            }
-            iframe {
-                height: 350px;
-                border-width: 4px;
-            }
-            a.button {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-            .faq-item h3 {
-                font-size: 1.1em;
-            }
-            .countdown-info {
-                font-size: 0.9em;
-            }
-            .countdown {
-                font-size: 1.2em;
-            }
-            .countdown-item {
-                margin: 0 5px;
-            }
+            header { padding: 15px 0; }
+            header h1 { font-size: 2em; letter-spacing: 1px; }
+            header p { font-size: 0.85em; }
+            .snowflakes { display: block; }
+            .audio-player-container { max-width: 95%; margin-top: 10px; margin-bottom: 20px; }
+            h2 { font-size: 1.7em; }
+            h2::after, h2::before { display: none; }
+            .section-description { font-size: 1em; }
+            iframe { height: 350px; border-width: 4px; }
+            a.button { padding: 12px 20px; font-size: 1em; }
+            .faq-item h3 { font-size: 1.1em; }
+            .countdown-info { font-size: 0.9em; }
+            .countdown { font-size: 1.2em; }
+            .countdown-item { margin: 0 5px; }
         }
 
-        /* FOOTER & DATENSCHUTZ STYLES (neu) */
         footer {
             background: rgba(34,34,34,0.95);
             color: #fff;
@@ -500,13 +450,13 @@
             margin: 0 12px;
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
         }
         footer .footer-note {
             font-size: 0.9em;
             color: #ddd;
         }
 
-        /* Impressum / Datenschutz Sektionen */
         #impressum, #datenschutz {
             width: 90%;
             max-width: 1200px;
@@ -521,10 +471,13 @@
         #impressum h3, #datenschutz h3 {
             margin-top: 0;
             color: var(--primary-red);
-            font-family: 'Oswald', sans-serif;
+            font-family: 'OswaldLocal', system-ui, -apple-system, "Segoe UI", "Oswald", sans-serif;
+        }
+        #datenschutz h4, #datenschutz h5 {
+            color: var(--primary-red);
+            margin-top: 20px;
         }
 
-        /* Cookie-Banner */
         .cookie-banner {
             position: fixed;
             left: 20px;
@@ -546,6 +499,10 @@
             color: #222;
             flex: 1 1 auto;
         }
+        .cookie-banner p a {
+            color: var(--christmas-green);
+            font-weight: 600;
+        }
         .cookie-banner .btn {
             background: var(--christmas-green);
             color: #fff;
@@ -554,6 +511,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            white-space: nowrap;
         }
         .cookie-banner .btn.secondary {
             background: transparent;
@@ -565,7 +523,6 @@
             .cookie-banner .btn { width: 100%; }
         }
 
-        /* Lightbox styles (neu) */
         .lightbox-overlay {
             position: fixed;
             inset: 0;
@@ -613,85 +570,90 @@
             text-decoration: none;
             font-weight: 700;
         }
-
-        /* Glympse-Placeholder */
-        .glympse-placeholder {
-            width: 100%;
-            min-height: 420px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 6px solid var(--christmas-green);
-            border-radius: 12px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.95));
-            box-shadow: 0 0 25px rgba(0,0,0,0.15);
-            margin-bottom: 35px;
-            text-align: center;
-            padding: 24px;
-        }
-        .glympse-placeholder p { margin: 0 0 12px 0; font-size: 1.05em; color: var(--dark-grey); }
-        .glympse-placeholder .note-cta { margin-top: 6px; }
     </style>
 </head>
 <body>
-    <!-- COOKIE-BANNER (direkt nach <body>) -->
-    <div id="cookie-banner" style="position:fixed; bottom:20px; left:20px; right:20px; background:#fff; padding:15px; box-shadow:0 5px 20px rgba(0,0,0,.2); border-radius:10px; z-index:99999; display:none;">
-      <p style="margin:0 0 10px 0;">
+    <!-- COOKIE-BANNER (direkt nach <body> öffnen) -->
+    <div id="cookie-banner" class="cookie-banner" style="display:none;">
+      <p>
         Diese Website nutzt externe Dienste (z. B. Google Analytics, Google Fonts, Instagram, Google Drive).
         Mit Klick auf „Akzeptieren" stimmen Sie der Nutzung zu.
         <a href="#datenschutz">Mehr Infos</a>
       </p>
-      <div style="display:flex; gap:8px; justify-content:flex-end;">
-        <button onclick="acceptCookies()" style="background:#2e7d32;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;">Akzeptieren</button>
-        <button onclick="declineCookies()" style="background:transparent;color:#444;border:1px solid #ddd;padding:8px 12px;border-radius:6px;cursor:pointer;">Ablehnen</button>
+      <div style="display:flex; gap:8px;">
+        <button id="cookie-decline" class="btn secondary">Ablehnen</button>
+        <button id="cookie-accept" class="btn">Akzeptieren</button>
       </div>
     </div>
-    <script>
-    function acceptCookies() {
-      localStorage.setItem("cookie_prefs", "accepted");
-      location.reload();
-    }
-    function declineCookies() {
-      localStorage.setItem("cookie_prefs", "declined");
-      document.getElementById("cookie-banner").style.display = "none";
-      // Entferne alle externen Skripte (falls irgendwie geladen)
-      removeExternalScripts();
-    }
-    // Funktion zum Entfernen aller externen Skripte
-    function removeExternalScripts() {
-      // Google Analytics entfernen
-      const gaScripts = document.querySelectorAll('script[src*="googletagmanager"]');
-      gaScripts.forEach(script => script.remove());
-      // Fonts entfernen
-      const fontLinks = document.querySelectorAll('link[href*="fonts.googleapis"]');
-      fontLinks.forEach(link => link.remove());
-      // Elfsight entfernen
-      const elfsightScripts = document.querySelectorAll('script[src*="elfsight"]');
-      elfsightScripts.forEach(script => script.remove());
-    }
-    // Funktion, um das Cookie-Banner über den Footer-Link wieder anzuzeigen
-    function showCookieSettings() {
-        document.getElementById("cookie-banner").style.display = "block";
-    }
-    if (!localStorage.getItem("cookie_prefs")) {
-      document.getElementById("cookie-banner").style.display = "block";
-    }
-    // Elfsight nur laden, wenn Zustimmung erteilt
-    function loadElfsight() {
-      if (localStorage.getItem('cookie_prefs') !== 'accepted') return;
-      if (document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')) return;
-      var s = document.createElement('script');
-      s.src = 'https://elfsightcdn.com/platform.js';
-      s.async = true;
-      document.body.appendChild(s);
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      if (localStorage.getItem('cookie_prefs') === 'accepted') {
-        loadElfsight();
-      }
-    });
-    </script>
 
+        <script>
+        // Cookie-Management
+        function acceptCookies() {
+            localStorage.setItem("cookie_prefs", "accepted");
+            // reload so head script can load fonts/analytics
+            location.reload();
+        }
+
+        function unloadThirdParty() {
+            // remove GA / gtag scripts
+            document.querySelectorAll('script[src*="googletagmanager"], script[src*="google-analytics"], script[src*="gtag"]').forEach(function(s){ s.remove(); });
+            // remove Google Fonts links
+            document.querySelectorAll('link[href*="fonts.googleapis.com"]').forEach(function(l){ l.remove(); });
+            // remove consent marker and background
+            try { document.documentElement.classList.remove('consented'); } catch(e){}
+            try { document.body.style.backgroundImage = ''; } catch(e){}
+            // unset dataLayer
+            try { window.dataLayer = undefined; } catch(e){}
+            // revert images inside main-content to placeholders (if they have data-src)
+            var main = document.getElementById('main-content');
+            if (main) {
+                main.querySelectorAll('img[data-src]').forEach(function(img){
+                    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                });
+                // unload iframes
+                main.querySelectorAll('iframe').forEach(function(fr){
+                    if (fr.getAttribute('data-src')) fr.src = '';
+                });
+            }
+        }
+
+        function declineCookies() {
+            localStorage.setItem("cookie_prefs", "declined");
+            // unload any third-party resources immediately
+            unloadThirdParty();
+            // keep banner visible and keep site locked; user can still change settings
+            const banner = document.getElementById("cookie-banner");
+            if (banner) {
+                banner.style.display = 'flex';
+                banner.querySelector('p').textContent = 'Sie haben der Nutzung externer Dienste widersprochen. Die eigentliche Seite wird nicht geladen.';
+                banner.scrollIntoView({behavior:'smooth'});
+            }
+            var main = document.getElementById('main-content');
+            if (main) main.style.display = 'none';
+        }
+
+        function showCookieSettings() {
+            // always return to cookie banner and ensure no third-party content is active
+            unloadThirdParty();
+            var main = document.getElementById('main-content');
+            if (main) main.style.display = 'none';
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+        }
+    
+        // Banner anzeigen falls keine Einstellung vorhanden
+        document.addEventListener('DOMContentLoaded', function() {
+            const banner = document.getElementById("cookie-banner");
+            if (!localStorage.getItem("cookie_prefs")) {
+                banner.style.display = "flex";
+            }
+      
+            document.getElementById("cookie-accept").addEventListener('click', acceptCookies);
+            document.getElementById("cookie-decline").addEventListener('click', declineCookies);
+        });
+        </script>
+
+    <div id="main-content">
     <header>
         <h1>Weihnachtskonvoi <span>Efringen-Kirchen</span></h1>
         <p>Ein magisches Erlebnis für die ganze Familie – Live dabei!</p>
@@ -700,13 +662,15 @@
         <p class="countdown-info">Der Konvoi startet in:</p>
         <div id="countdown" class="countdown"></div>
 
-        <!-- Prominentes Share-Banner mit Hashtag & Instagram -->
         <div class="share-banner" role="region" aria-label="Fotos teilen">
             <span class="hashtag">#WeihnachtskonvoiEfringenKirchen</span>
             <span class="share-text">Teile deine Fotos auf Instagram und markiere uns</span>
-            <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-                <img src="https://raw.githubusercontent.com/Finnhtml/Weihnachtskonvoi-Bilder/refs/heads/main/Insta%20Logo.avif" alt="Instagram Logo">
+            <a class="social-link" href="https://www.instagram.com/ffw_ek?igsh=MmY2MjJwOHIwZ3Zw" target="_blank" aria-label="Instagram öffnen">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABWVBMVEVyHVFHcEx0Fvp8Fv1yFP1/FfyLCOyfBOmtAeS7AuDHAd3UANjZAs7rD6xyFvzjANTqAMHoA7l2F/yPFfx8GPmfD/zFF/XVWujoZuLyZt3pRt/yGdHyA8j1AKTViPj/9Pr////8g9f9A7r3DZz5vO794Pf+ruj9B6uzFPv7JLv+AJr+BI/+YMP/1vD+AIThG+n9GZn/vd3/YZz+AXP+GoT/r8r+AmT/b5z+HHH+I3f+G2P/ur7+FFD+Klb+fYv/wcr+LUf+LWX+AFn+Nzr+Ohz+RT7+inP+Si7/ztD+TxL/zbv+Wy//9fH+WgL+c1X+ZyX+PUv+Bzv+VXD+cxr/6eL+aQT+eAX+nDj+gwD+gxH+fSL+rYn+jwD+iwL+XhX/3rn/1bH9ZR/+lwP+nwH+xHH8ZC3+qAH+sAD+wAP+x1P+zGb+pl79mQn+uAD9J3T+ygD9O1n8pRL9twuaEkMNAAAAc3RSTlMBAF3G///////////GW9j//9nY/1r///////////7//////8b/////////////////////////////////////////////////////////////////////////////////xf///1v////////Y/9j/2VzGSus+GgAAAeNJREFUeAFFjEWiU0EQRc/tqu74V9wZ4TBiB6wG3wpzVoQ7zHCXeELypHH+KVchJAESaEs0IUv0Zv+7fwLgSAOk9ZFghcnfDw4AAg18cyhWCKNVob9NCZjQLWVrEGhJbJGDoCBpMwCrJTETAKBWgdeRGb4dmJW56PdI/KU1K4X15N+AFsW0+3/WVm7Pa0Pmu4Fh7HcbRIjMIhr3FItUGAH4SNZKjK32YjKpK3Iv0yUY0b8g0Vs0oK+8wbeyMBAQwVeo44R1z7XWq6rqpn5jiTmAeQO3iceg9zkYzKvc71iEmMFbqCJJ4tDcKFrLjX5D/MEdq8GpIUUgd/tgGboTgiUDPDZ44SXNpr0gWRcAgqEmEPJRNVPOxYaOth0oAHdCxWoOzslH+RCvlafYMgFUHvAIHoCjz16io80BrH/j0AAcJ9KWKkhn5sRyGjsDtr/sqyrsWNO1cW9/cDNLZgHLSzVvn+wMq9qbKKwy7TiIaKTW56pzW6Oa+N1OKEQdvvl2RyOE4DEOZurd1cHNeab27tyjOPfhFlucXP04ovF97B6jTOzdJwFLaNAff7N6c8incH1VpiSR67q2VgjzUU7JgbMTiQtFKmgAsCAuczlflmVZn7iGBFc1awB/p4tqUS3LDb8OPwBrSrZIO/KHZwAAAABJRU5ErkJggg==" alt="Instagram Logo">
             </a>
+            <a class="social-link" href="https://linktr.ee/Weihnachtskonvoi2025" target="_blank" aria-label="Linktree öffnen">
+    <img src="https://cdn.simpleicons.org/linktree/000000" alt="Linktree Logo" style="background: white; padding: 5px; box-sizing: border-box;">
+</a>
         </div>
 
         <div class="snowflakes" aria-hidden="true">
@@ -724,26 +688,24 @@
             <div class="snowflake">❄</div>
         </div>
     </header>
-
+    
     <div class="container">
         <p class="section-description">
-Herzlich willkommen zum offiziellen Live-Tracking des Weihnachtskonvois Efringen-Kirchen! Freuen sie sich darauf, wenn verschiedene Blaulicht- und Hilfsorganisationen mit ihren Großen und kleinen Fahrzeuge durch die Straßen ziehen und Weihnachtsstimmung verbreiten. Ein besonderer Dank gilt allen ehrenamtlichen Helfern, die dieses magische Ereignis ermöglichen!        </p>
+Herzlich willkommen zum offiziellen Live-Tracking des Weihnachtskonvois Efringen-Kirchen! Jedes Jahr aufs Neue verwandeln wir unsere Gemeinde in ein funkelndes Winterwunderland. Begleiten Sie uns auf unserer festlichen Tour, wenn unsere beleuchteten Fahrzeuge durch die Straßen ziehen und Weihnachtsstimmung verbreiten. Ein besonderer Dank gilt allen ehrenamtlichen Helfern, die dieses magische Ereignis ermöglichen!        </p>
 
         <h2>Unser Konvoi – Eine Tradition voller Herz</h2>
         <p class="section-description">
-Der Weihnachtskonvoi ist mehr als nur eine Lichterfahrt. Er ist ein Zeichen der Gemeinschaft, der Freude und der Solidarität in unserer schönen Gemeinde Efringen-Kirchen.       </p>
+Der Weihnachtskonvoi ist mehr als nur eine Lichterfahrt. Er ist ein Zeichen der Gemeinschaft, der Freude und der Solidarität in unserer schönen Gemeinde Efringen-Kirchen. Werden Sie Teil dieser wundervollen Tradition!        </p>
 
         <h2> Impressionen vergangener Jahre</h2>
         <div class="image-gallery">
-            <img class="Bild" src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%201.jpeg?raw=true" alt="Ein Erwachsener hält ein Kind auf dem Arm, das einem hell beleuchteten Feuerwehrfahrzeug der Freiwilligen Feuerwehr Efringen-Kirchen zuwinkt, während der Weihnachtskonvoi durch eine Wohnstraße fährt.">
-            <img class="Bild" src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%202.jpeg?raw=true" alt="Feuerwehrfahrzeuge der Freiwilligen Feuerwehr Efringen-Kirchen fahren als Teil des Weihnachtskonvois in Kolonne mit Blaulicht auf einer Landstraße bei Dämmerung.">
-            <img class="Bild" src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%203.jpeg?raw=true" alt="Beeindruckende, lange Kolonne von Einsatzfahrzeugen der Feuerwehr und anderer Organisationen mit eingeschaltetem Blaulicht in der Dunkelheit, als Teil des festlichen Weihnachtskonvois Efringen-Kirchen.">
+            <img class="Bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%201.jpeg?raw=true" alt="Ein Erwachsener hält ein Kind auf dem Arm, das einem hell beleuchteten Feuerwehrfahrzeug der Freiwilligen Feuerwehr Efringen-Kirchen zuwinkt, während der Weihnachtskonvoi durch eine Wohnstraße fährt.">
+            <img class="Bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%202.jpeg?raw=true" alt="Feuerwehrfahrzeuge der Freiwilligen Feuerwehr Efringen-Kirchen fahren als Teil des Weihnachtskonvois in Kolonne mit Blaulicht auf einer Landstraße bei Dämmerung.">
+            <img class="Bild" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="https://github.com/Finnhtml/Weihnachtskonvoi-Bilder/blob/main/Bild%203.jpeg?raw=true" alt="Beeindruckende, lange Kolonne von Einsatzfahrzeugen der Feuerwehr und anderer Organisationen mit eingeschaltetem Blaulicht in der Dunkelheit, als Teil des festlichen Weihnachtskonvois Efringen-Kirchen.">
         </div>
-        <p class="image-note">
-        </p>
+        <p class="image-note"></p>
         <p class="image-hint">Klicke ein Bild an, um es größer zu öffnen. </p>
 
-        <!-- Flyer: Direktlink zum Google Drive-Ordner -->
         <div id="flyer" style="margin:20px 0;">
           <h2>Flyer herunterladen</h2>
           <p class="section-description">Der offizielle Flyer ist im Google Drive-Ordner abgelegt. Öffne den Ordner, um PDF oder Bilder herunterzuladen.</p>
@@ -802,22 +764,13 @@ Hier finden Sie den voraussichtlichen Streckenverlauf und die geschätzten Ankun
 
         <h2> Aktueller Standort des Konvois</h2>
         <p class="section-description">
-Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten sehen können.        </p>
-        <div class="glympse-placeholder" role="region" aria-label="Live-Tracking Hinweis">
-            <div>
-                <p><strong>An dieser Stelle wird später das Live-Tracking angezeigt.</strong></p>
-                <p></p>
-                <div class="note-cta">
-                
-                </div>
-            </div>
-        </div>
+Verpassen Sie nicht, wo unser Konvoi gerade unterwegs ist! Auf der Karte unten können Sie den aktuellen Standort live verfolgen und planen, wann und wo Sie uns am besten sehen können. +++ACHTUNG: Zwischendurch kann es zu Verbindungsabbrüchen von dem Tracking kommen! Außerdem gibt es oft eine Verzögerung bei der Aktualisierung der Position.+++        </p>
+        <iframe data-src="https://glympse.com/BxFB-BRuy" allowfullscreen loading="lazy"></iframe>
         
-    
-            
-       
-
-        
+        <p>
+            Für eine noch bessere Übersicht oder wenn Sie uns von unterwegs folgen möchten:
+        </p>
+        <a class="button" href="https://glympse.com/BxFB-BRuy" target="_blank">Konvoi in voller Ansicht öffnen</a>
 
         <h2>Häufig gestellte Fragen (FAQ)</h2>
         <ul class="faq-list">
@@ -839,70 +792,32 @@ Verpassen Sie nicht, wo unser festlicher Konvoi gerade unterwegs ist! Auf der Ka
             </li>
         </ul>
 
-        
-
         <h2>Ihre Momente – Teilen Sie Ihre Fotos und Videos!</h2>
         <p class="section-description">
-Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:             
-            <strong>#WeihnachtskonvoiEfringenKirchen</strong> und Makieren Sie uns auf Instagram. Alle Hinweise und Links finden Sie ganz oben auf der Seite.
-
-            Alternativ können Sie Ihre Aufnahmen auch über Dropola hochladen:
-            <a class="button" href="https://dropola.com/event/F3VPBR/upload" target="_blank" rel="noopener">Zum Dropola-Upload</a>
+            Sie haben ein tolles Foto oder ein Video vom Konvoi gemacht? Wir freuen uns riesig über Ihre Aufnahmen!
         </p>
         
-        
+        <p class="section-description">
+            Nutzen Sie den Hashtag <strong>#WeihnachtskonvoiEfringenKirchen</strong> oder markieren Sie uns auf Instagram. 
+            Alternativ können Sie Ihre Dateien auch ganz einfach und direkt über <strong>Dropola</strong> hochladen:
         </p>
-    </div>
 
-    <script>
-        const snowflakesContainer = document.querySelector('.snowflakes');
-        if (snowflakesContainer) {
-            const numSnowflakes = 30;
-            for (let i = 0; i < numSnowflakes; i++) {
-                let snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerHTML = ['❅', '❆', '❄'][Math.floor(Math.random() * 3)];
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                snowflake.style.animationDelay = (Math.random() * 5) + 's';
-                snowflake.style.fontSize = (Math.random() * 0.8 + 0.6) + 'em';
-                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-                snowflakesContainer.appendChild(snowflake);
-            }
-        }
+        <div style="margin: 30px 0;">
+            <a class="button" href="https://dropola.com/event/F3VPBR/upload" target="_blank" style="background-color: var(--primary-red);">
+                📸 Fotos & Videos via Dropola hochladen
+            </a>
+        </div>
         
-        // Countdown-Funktion
-        const countdownElement = document.getElementById('countdown');
-        // VORSICHT: Dies ist ein KI-Beispiel. Das Datum wurde auf den 21.12.2025 17:00:00 Uhr gesetzt.
-        // Bitte das Datum und die Uhrzeit des Konvois hier anpassen.
-        const countdownDate = new Date("December 21, 2025 17:45:00").getTime();
+        <p class="section-description" style="font-size: 0.9em; opacity: 0.8;">
+            Alle weiteren Hinweise und Social-Media-Links finden Sie auch ganz oben auf der Seite im goldenen Banner.
+        </p>
         
-        const updateCountdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if (distance < 0) {
-                clearInterval(updateCountdown);
-                countdownElement.innerHTML = "Der Konvoi ist unterwegs!";
-            } else {
-                countdownElement.innerHTML = `
-                    <div class="countdown-item">${days}<span>Tage</span></div>
-                    <div class="countdown-item">${hours}<span>Stunden</span></div>
-                    <div class="countdown-item">${minutes}<span>Minuten</span></div>
-                    <div class="countdown-item">${seconds}<span>Sekunden</span></div>
-                `;
-            }
-        }, 1000);
-    </script>
+        <p class="section-description">
+            Hinweis: Diese Website wird privat für den Weihnachtskonvoi Efringen-Kirchen betrieben und ist nicht offiziell mit der Feuerwehr Efringen-Kirchen verbunden.
+        </p>
+    </div> <!-- /#main-content -->
 
-    <!-- Hinweis: Altes dynamisches Cookie-Skript entfernt. Neue Cookie-Banner/Logik direkt nach <body>. -->
-
-    <!-- IMPRESSUM & DATENSCHUTZ (steht unten auf der Seite) -->
+    <!-- IMPRESSUM & DATENSCHUTZ -->
     <section id="impressum" aria-labelledby="impressum-title">
         <h3 id="impressum-title">Impressum</h3>
         <p>
@@ -949,27 +864,29 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
                 <p>Die Schriften werden <strong>lokal</strong> von unserem Server geladen. Es erfolgt <strong>keine</strong> Datenübertragung an Google.</p>
             </li>
             <li>
-                <h5>Elfsight (Instagram-Feed)</h5>
-                <p>Zur Anzeige von Instagram-Inhalten nutzen wir den Dienst Elfsight. Nach Ihrer Zustimmung wird ein Skript von Elfsight geladen, das Daten an Elfsight und Instagram (Meta Platforms Ireland Limited) überträgt.</p>
-            </li>
-            <li>
                 <h5>Google Drive (Flyer-Download)</h5>
                 <p>Der Link zum Flyer leitet auf Google Drive weiter. Google (Google Ireland Limited) erhält dabei Ihre IP-Adresse und Informationen zur Nutzung des Links.</p>
             </li>
             <li>
-                <h5>Live-Tracking (Glympse / ähnlicher Dienst)</h5>
-                <p>Für das Live-Tracking binden wir temporär einen Kartendienst (z.B. Glympse oder Google Maps) ein. Bei Aufruf der Karte werden Daten an den jeweiligen Dienstanbieter übertragen. Dies erfolgt erst nach Ihrer Zustimmung (Art. 6 Abs. 1 lit. a DSGVO), oder der Dienst wird über einen Button nachgeladen.</p>
+                <h5>Live-Tracking (Glympse)</h5>
+                <p>Für das Live-Tracking binden wir einen Kartendienst (Glympse) ein. Bei Aufruf der Karte werden Daten an den Dienstanbieter übertragen (Art. 6 Abs. 1 lit. f DSGVO für technisch notwendige Funktionsfähigkeit).</p>
             </li>
             <li>
-                <h5>Dropola (Bilder-Upload)</h5>
-                <p>Der Link zum Bilder-Upload leitet auf den externen Dienst Dropola weiter. Dropola ist ein eigenständiger Verantwortlicher und es gelten deren Datenschutzbestimmungen.</p>
+                <h5>Instagram</h5>
+                <p>Wir verlinken auf Instagram (Meta Platforms Ireland Limited). Bei Klick auf den Link erhalten Sie Zugriff auf unseren Instagram-Account. Meta erhält Ihre IP-Adresse.</p>
             </li>
         </ul>
 
         <h4>4. Cookies</h4>
         <p>Wir verwenden ein technisch notwendiges Cookie (lokale Speicherung, "cookie_prefs"), um Ihre Auswahl bezüglich der Zustimmung zu externen Diensten zu speichern. Dieses Cookie speichert <strong>keine</strong> personenbezogenen Daten und dient ausschließlich der Steuerung der Drittanbieter-Inhalte (Art. 6 Abs. 1 lit. f DSGVO). Google Analytics setzt ebenfalls Cookies zur Verfolgung Ihrer Website-Nutzung, aber nur nach Ihrer Zustimmung.</p>
-        
-        
+
+        <h4>5. Ihre Betroffenenrechte</h4>
+        <p>
+        Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung (Art. 15 DSGVO). Des Weiteren haben Sie das Recht auf Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) sowie auf Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Hierfür können Sie sich jederzeit unter der oben angegebenen E-Mail-Adresse an uns wenden.
+        </p>
+
+        <h4>6. Widerrufsrecht und Cookie-Einstellungen</h4>
+        <p>Sie können Ihre Cookie-Einstellungen jederzeit über das <a href="#" onclick="showCookieSettings(); return false;">Cookie-Banner</a> ändern. Wenn Sie Ihre Zustimmung widerrufen, werden keine weiteren Daten an externe Dienste übertragen.</p>
     </section>
 
     <footer>
@@ -977,13 +894,13 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
             <span class="footer-note">© 2025 Weihnachtskonvoi Efringen-Kirchen | Private Initiative</span>
             <div class="footer-links">
                 <a href="#impressum">Impressum</a>
-                <a href="#datenschutz">Datenschutzerklärung</a>
+                <a href="#datenschutz">Datenschutz</a>
                 <a href="#" onclick="showCookieSettings(); return false;">Cookie-Einstellungen</a>
             </div>
         </div>
     </footer>
 
-    <!-- Lightbox HTML (wird per JS gesteuert) -->
+    <!-- Lightbox HTML -->
     <div id="lightbox" class="lightbox-overlay" aria-hidden="true" role="dialog" aria-label="Bildvorschau">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Schließen">×</button>
@@ -995,7 +912,92 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
     </div>
 
     <script>
-    // Lightbox-Script (neu)
+        const snowflakesContainer = document.querySelector('.snowflakes');
+        if (snowflakesContainer) {
+            const numSnowflakes = 30;
+            for (let i = 0; i < numSnowflakes; i++) {
+                let snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = ['❅', '❆', '❄'][Math.floor(Math.random() * 3)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 5) + 's';
+                snowflake.style.fontSize = (Math.random() * 0.8 + 0.6) + 'em';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+        
+        // Countdown-Funktion
+        const countdownElement = document.getElementById('countdown');
+        const countdownDate = new Date("December 21, 2025 17:45:00").getTime();
+        
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                countdownElement.innerHTML = "Der Konvoi ist unterwegs!";
+            } else {
+                countdownElement.innerHTML = `
+                    <div class="countdown-item">${days}<span>Tage</span></div>
+                    <div class="countdown-item">${hours}<span>Stunden</span></div>
+                    <div class="countdown-item">${minutes}<span>Minuten</span></div>
+                    <div class="countdown-item">${seconds}<span>Sekunden</span></div>
+                `;
+            }
+        }, 1000);
+    </script>
+
+    <script>
+    // Show/hide main content and load deferred media only after consent
+    document.addEventListener('DOMContentLoaded', function() {
+        var main = document.getElementById('main-content');
+        var banner = document.getElementById('cookie-banner');
+        var pref = localStorage.getItem('cookie_prefs');
+
+        function loadDeferredMedia() {
+            try { document.documentElement.classList.add('consented'); } catch(e){}
+            if (!main) return;
+            // load images
+            var imgs = main.querySelectorAll('img[data-src]');
+            imgs.forEach(function(img){
+                var src = img.getAttribute('data-src');
+                if (src) img.src = src;
+            });
+            // load iframes
+            var iframes = main.querySelectorAll('iframe[data-src]');
+            iframes.forEach(function(fr){
+                var s = fr.getAttribute('data-src');
+                if (s) fr.src = s;
+            });
+        }
+
+        if (pref === 'accepted') {
+            if (main) main.style.display = '';
+            if (banner) banner.style.display = 'none';
+            loadDeferredMedia();
+        } else {
+            // no consent or declined: keep main content hidden and show Datenschutzerklärung + banner
+            // ensure any previously loaded third-party resources are unloaded
+            try { if (typeof unloadThirdParty === 'function') unloadThirdParty(); } catch(e){}
+            if (main) main.style.display = 'none';
+            if (!pref && banner) banner.style.display = 'flex';
+            if (pref === 'declined' && banner) {
+                banner.style.display = 'flex';
+            }
+        }
+    });
+    </script>
+
+    <script>
+    // Lightbox-Script
     (function() {
         function openLightbox(url, alt) {
             const overlay = document.getElementById('lightbox');
@@ -1018,19 +1020,16 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Ziel: nur Galerie-Bilder (hier .image-gallery) anklickbar machen
-            const galleryImgs = document.querySelectorAll('.image-gallery img, .image-gallery .wappen');
+            const galleryImgs = document.querySelectorAll('.image-gallery img');
             galleryImgs.forEach(img => {
                 img.style.cursor = 'zoom-in';
                 img.addEventListener('click', function(e) {
                     e.preventDefault();
-                    // Wenn ein data-full vorhanden ist, nutze das (höhere Auflösung), sonst src
                     const full = img.getAttribute('data-full') || img.src;
                     openLightbox(full, img.alt);
                 });
             });
 
-            // Schließen per Klick außerhalb Bildes oder auf Close-Button
             const overlay = document.getElementById('lightbox');
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay) closeLightbox();
@@ -1038,7 +1037,6 @@ Sie haben ein tolles Foto oder Video? Nutzen Sie den Hashtag:
             const closeBtn = overlay.querySelector('.lightbox-close');
             closeBtn.addEventListener('click', closeLightbox);
 
-            // Keyboard: Esc schließt
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     const overlay = document.getElementById('lightbox');
